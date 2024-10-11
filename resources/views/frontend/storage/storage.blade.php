@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+
    <x-navigation />
 <!-- Estimate_area start  -->
 <div class="Estimate_area overlay">
@@ -88,15 +88,15 @@
             <div class="input_field">
                 <select name="size" class="wide" id="size_select" required>
                     <option data-display="Select Size (m²)" value="">Select Size (m²)</option>
-                    <option value="2x2" data-price="20">2x2 - $20</option>
-                    <option value="3x3" data-price="30">3x3 - $30</option>
-                    <option value="4x4" data-price="40">4x4 - $40</option>
-                    <option value="5x5" data-price="50">5x5 - $50</option>
-                    <option value="6x6" data-price="60">6x6 - $60</option>
-                    <option value="7x7" data-price="70">7x7 - $70</option>
-                    <option value="8x8" data-price="80">8x8 - $80</option>
-                    <option value="9x9" data-price="90">9x9 - $90</option>
-                    <option value="10x10" data-price="100">10x10 - $100</option>
+                    <option value="4" data-price="20">2x2 - $20</option>
+                    <option value="9"   data-price="30">3x3 - $30</option>
+                    <option value="16" data-price="40">4x4 - $40</option>
+                    <option value="25" data-price="50">5x5 - $50</option>
+                    <option value="36" data-price="60">6x6 - $60</option>
+                    <option value="49" data-price="70">7x7 - $70</option>
+                    <option value="64" data-price="80">8x8 - $80</option>
+                    <option value="81" data-price="90">9x9 - $90</option>
+                    <option value="100" data-price="100">10x10 - $100</option>
                 </select>
             </div>
         </div>
@@ -105,13 +105,13 @@
             <div class="input_field">
                 <label for="breakable">Is the item breakable?</label>
                 <select id="breakable" name="breakable" class="wide" required>
-                    <option value="" disabled selected>Select Breakable Option</option> 
+                    <option value="" disabled selected>Select Breakable Option</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
                 </select>
             </div>
         </div>
-                                                    
+
         <div class="col-xl-6">
             <div class="input_field">
                 <label for="delivery_service">Do you need delivery service?</label>
@@ -183,7 +183,7 @@
         <div class="col-xl-12">
             <div class="input_field">
                 <label class="text-white">Size and Total Price:</label>
-                <input type="hidden" name="total_price" id="total_price_hidden">  
+                <input type="hidden" name="total_price" id="total_price_hidden">
                 <span id="selected_size" class="text-white">Selected Size: - </span>
                 <span id="total_price" class="text-white">Total Price: $0.00</span>
             </div>
@@ -206,7 +206,7 @@
     </div>
 </div>
 <!-- Estimate_area end  -->
-    
+
 <x-footer />
 
 <!-- JS هنا -->
@@ -243,7 +243,7 @@
 <script>
 // Define base prices for each size and month
 const basePricePerMonth = {
-    "2x2": 20,
+    "4": 20,
     "3x3": 30,
     "4x4": 40,
     "5x5": 50,
@@ -281,14 +281,14 @@ function calculateTotal() {
     const selectedSize = $("select[name='size']").val();
     const selectedDuration = $("select[name='storage_duration']").val();
     const deliveryService = $("select[name='delivery_service']").val();
-    
+
     let totalPrice = 0;
-    
+
     if (selectedSize && selectedDuration) {
         const basePrice = basePricePerMonth[selectedSize]; // Get base price for the selected size
         const durationMonths = parseInt(selectedDuration); // Extract number of months from the selected duration
         totalPrice = basePrice * durationMonths; // Calculate total price based on size and duration
-        
+
         // Add delivery price if "Yes" is selected
         if (deliveryService === "yes") {
             totalPrice += deliveryPrice;
@@ -298,7 +298,7 @@ function calculateTotal() {
         const taxAmount = totalPrice * taxRate;
         totalPrice += taxAmount; // Add tax to total price
     }
-    
+
     $("#total_price").text(`$${totalPrice.toFixed(2)}`); // Display the total price with tax
     $("#total_price_hidden").val(totalPrice.toFixed(2));
 }

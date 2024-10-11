@@ -35,7 +35,7 @@
         }
 
 
-   
+
 
 
         th, td {
@@ -50,7 +50,7 @@
             color: #ffffff;
         }
 
-       
+
 
         tr:nth-child(even) {
             background-color: #191C24;
@@ -85,10 +85,10 @@
         }
 
         .custom-button {
-            margin-bottom: 5px; 
+            margin-bottom: 5px;
         }
 
-    
+
 
     </style>
 </head>
@@ -148,6 +148,8 @@
         <form action="{{ route('admin.updateRequest', $inventoryRequest->id) }}" method="POST" class="d-flex flex-column">
             @csrf
             @method('PATCH')
+            <input type="hidden" name="size" value="{{ $inventoryRequest->size }}">
+            <input type="hidden" name="location_id" value="{{ $inventoryRequest->location_id }}">
             <button type="submit" name="action" value="accept" class="btn btn-success btn-sm w-100 custom-button">Accept</button>
             <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm w-100 custom-button">Reject</button>
         </form>

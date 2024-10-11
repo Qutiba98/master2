@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Inventory extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'name',
         'location_id',
         'space',
         'total_space',
     ];
-
+    protected $table = 'inventory';
     public function location()
     {
-        return $this->belongsTo(InventoryLocation::class, 'location_id');
+        return $this->hasMany(InventoryLocation::class, 'location_id');
     }
 
     public function products()

@@ -12,6 +12,7 @@ class InventoryRequestController extends Controller
 {
     public function store(Request $request)
     {
+
         // تحقق من صحة المدخلات
         $request->validate([
             'governorate' => 'required|string',
@@ -25,7 +26,7 @@ class InventoryRequestController extends Controller
             'total_price' => 'nullable|string',
             'location_id' => 'required|in:1,2,3', // تأكد من أن القيمة إما 1 أو 2
 
-            
+
         ]);
 
         $inventoryRequest = new InventoryRequest();
@@ -68,20 +69,16 @@ class InventoryRequestController extends Controller
     {
         // جلب الطلب من قاعدة البيانات
         $storageRequest = InventoryRequest::findOrFail($id);
+
         // عرض معلومات الطلب
         return view('frontend.storage.storageView', compact('storageRequest'));
-
     }
 
     public function showRequest()
     {
         $users = User::all();
         $inventoryRequests = InventoryRequest::all(); // جلب جميع الطلبات
+
         return view('admin.showRequest', compact('users', 'inventoryRequests'));
     }
-
-
-
-
 }
-

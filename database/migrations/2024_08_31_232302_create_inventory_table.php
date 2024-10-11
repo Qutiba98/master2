@@ -21,10 +21,10 @@ class CreateInventoryTable extends Migration
 
             // إضافة المفتاح الخارجي
             $table->foreign('location_id')
-                  ->references('id')->on('inventory_location')
-                  ->onDelete('cascade'); // تعديل عملية الحذف حسب الحاجة
+                ->references('id')->on('inventory_location')
+                ->onDelete('cascade'); // تعديل عملية الحذف حسب الحاجة
 
-            $table->string('space'); // عمود لتخزين مساحة التخزين
+            $table->unsignedInteger('space'); // Space should be integer, not string
             $table->timestamps(); // ينشئ عمودين لتوقيت الإنشاء والتحديث
         });
     }

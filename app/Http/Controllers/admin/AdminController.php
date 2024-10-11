@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Inventory;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\InventoryRequest;
+
 class AdminController extends Controller
 {
     // عرض نموذج تسجيل مستخدم جديد
@@ -16,7 +18,7 @@ class AdminController extends Controller
     {
         $roles = Role::all();
         return view('admin.createuser', compact('roles'));
-        }
+    }
 
     // معالجة تقديم نموذج تسجيل مستخدم جديد
     public function storeUser(Request $request)
@@ -29,12 +31,12 @@ class AdminController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'role_id' => 'required|exists:roles,id',
         ]);
-    
+
         $this->create($request->all());
-    
+
         return redirect()->route('admin.showusers')->with('success', 'User created successfully.');
     }
-    
+
     // إنشاء مستخدم جديد
     protected function create(array $data)
     {
@@ -60,9 +62,9 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($id);
         $roles = Role::all();
-        return view('admin.edituser', compact('user','roles'));
+        return view('admin.edituser', compact('user', 'roles'));
     }
-    
+
     // معالجة تقديم نموذج تعديل مستخدم
     public function update(Request $request, $id)
     {
@@ -98,7 +100,7 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        
+
         return redirect()->back()->with('success', 'User soft deleted successfully.');
     }
 
@@ -107,7 +109,7 @@ class AdminController extends Controller
     {
         $user = User::onlyTrashed()->findOrFail($id);
         $user->forceDelete();
-        
+
         return redirect()->back()->with('success', 'User permanently deleted successfully.');
     }
 
@@ -116,41 +118,56 @@ class AdminController extends Controller
     {
         $user = User::onlyTrashed()->findOrFail($id);
         $user->restore();
-        
+
         return redirect()->route('admin.trashedusers')->with('success', 'User restored successfully.');
     }
 
     // عرض قائمة المستخدمين
-public function showRequest()
-{
-    $users = User::all();
-    $inventoryRequests = InventoryRequest::all(); // جلب جميع الطلبات من جدول InventoryRequest
-    return view('admin.showRequest', compact('users', 'inventoryRequests')); // تمرير كل من المستخدمين والطلبات
-}
-    
-
-public function updateRequest(Request $request, $id)
-{
-    $request->validate([
-        'action' => 'required|in:accept,reject,pending', // إضافة pending كإجراء مسموح به
-    ]);
-
-    $inventoryRequest = InventoryRequest::findOrFail($id);
-
-    if ($request->action == 'accept') {
-        $inventoryRequest->status_id = 2; // تعيين الحالة إلى "قيد التنفيذ"
-    } elseif ($request->action == 'reject') {
-        $inventoryRequest->status_id = 3; // تعيين الحالة إلى "مرفوض"
-    } elseif ($request->action == 'pending') {
-        $inventoryRequest->status_id = 1; // تعيين الحالة إلى "معلق"
+    public function showRequest()
+    {
+        // $users = User::all();
+        $inventoryRequests = InventoryRequest::with('user')->get(); // جلب جميع الطلبات من جدول InventoryRequest
+        // dd($inventoryRequests);
+        return view('admin.showRequest', compact('inventoryRequests')); // تمرير كل من المستخدمين والطلبات
     }
 
-    $inventoryRequest->save();
 
-    return redirect()->route('admin.showRequest')->with('success', 'Request updated successfully.');
-}
+    public function updateRequest(Request $request, $id)
+    {
+        $request->validate([
+            'action' => 'required|in:accept,reject,pending',
+            'size' => 'required',
+            'location_id' => 'required',
+        ]);
 
+        $inventoryRequest = InventoryRequest::findOrFail($id);
+        $updateSpace = Inventory::where('location_id', $request->location_id)->first();
 
+        if ($request->action == 'accept') {
+            // Cast both space and size to integers
+            $space = (int) $updateSpace->space;
+            $size = (int) $request->size;
 
+            // Check if the requested size is greater than available space
+            if ($size > $space) {
+                $inventoryRequest->status_id = 3; // Set status to "rejected"
+            } else {
+                $inventoryRequest->status_id = 2; // Set status to "in progress"
+                $updateSpace->space = $space - $size; // Subtract size from space
+                $updateSpace->total_space += $size;
 
+                // Save the updated space
+                $updateSpace->save(); // This line is crucial for saving changes
+            }
+        } elseif ($request->action == 'reject') {
+            $inventoryRequest->status_id = 3; // Set status to "rejected"
+        } elseif ($request->action == 'pending') {
+            $inventoryRequest->status_id = 1; // Set status to "pending"
+        }
+
+        // Save the inventory request update
+        $inventoryRequest->save();
+
+        return redirect()->route('admin.showRequest')->with('success', 'Request updated successfully.');
+    }
 }

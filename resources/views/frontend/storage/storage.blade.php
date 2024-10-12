@@ -89,7 +89,7 @@
                 <select name="size" class="wide" id="size_select" required>
                     <option data-display="Select Size (m²)" value="">Select Size (m²)</option>
                     <option value="4" data-price="20">2x2 - $20</option>
-                    <option value="9"   data-price="30">3x3 - $30</option>
+                    <option value="9" data-price="30">3x3 - $30</option>
                     <option value="16" data-price="40">4x4 - $40</option>
                     <option value="25" data-price="50">5x5 - $50</option>
                     <option value="36" data-price="60">6x6 - $60</option>
@@ -139,11 +139,11 @@
         <div class="col-xl-6">
             <div class="input_field">
                 <label for="location_id"></label>
-                <select name="location_id" id="location_id">
+                <select name="location_id" id="location_id" required>
                     <option data-display="Select Warehouse" value="">Select Warehouse</option>
-                    <option value="1"> Amman </option>
-                    <option value="2"> Salt </option>
-                    <option value="3"> Irbad </option>
+                    <option value="1">Amman</option>
+                    <option value="2">Salt</option>
+                    <option value="3">Irbid</option>
                 </select>
             </div>
         </div>
@@ -196,7 +196,6 @@
         </div>
     </div>
 </form>
-
 
 
 

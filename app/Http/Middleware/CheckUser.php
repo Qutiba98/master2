@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckAdminRole
+class CheckUser
 {
     /**
      * Handle an incoming request.
@@ -20,12 +20,14 @@ class CheckAdminRole
         $user = Auth::user();
         
         // تحقق من صلاحية المستخدم
-        if ($user && in_array($user->role_id, explode('|', $role))) {
+        if ($user) {
             return $next($request);
+            
         }
 
+
         // إعادة توجيه إذا لم يكن المستخدم لديه الصلاحية
-        return redirect('/home')->with('error', 'You do not have access to this page.');
+        return redirect('/login')->with('error', 'You do not have access to this page.');
     }
     
 }

@@ -55,7 +55,33 @@
 
         <button type="submit" class="btn btn-primary">Create Inventory</button>
 
+        
     </form>
+
+
+
+
+@if(isset($idg) && $idg->isEmpty())
+    <tr>
+        <td colspan="2">لا توجد مواقع متاحة</td> <!-- يمكنك تعديل النص حسب الحاجة -->
+    </tr>
+@else
+    @if(isset($idg))
+        @foreach($idg as $location)
+            <tr>
+                <td>{{ $location->id }}</td>
+                <td>{{ $location->name }}</td>
+            </tr>
+        @endforeach
+    @else
+        <tr>
+            <td colspan="2"> </td> <!-- يمكنك تعديل النص حسب الحاجة -->
+        </tr>
+    @endif
+@endif
+
+
+
 </div>
 
 

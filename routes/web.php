@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Inventory\InventoryRequestController;
 use App\Http\Controllers\Inventory\updateRequest;
 use App\Http\Controllers\PaymentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -64,18 +65,7 @@ Route::get('/about', function () {
     return view('frontend.about');
 })->name('about');
 
-// مسارات تسجيل الدخول والتسجيل
-Route::get('/login', function () {
-    return view('login.Log in.login');
-})->name('login');
 
-Route::post('/login', [LoginController::class, 'login'])->name('login.post');
-
-Route::get('/register', function () {
-    return view('login.Register.register');
-})->name('register');
-
-Route::post('/register', [RegisteredUserController::class, 'register'])->name('register.post');
 
 // صفحة الملف الشخصي للمستخدم
 Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
@@ -94,9 +84,6 @@ Route::get('/Ocean_Freight', function () {
 })->name('frontend.packeg.Ocean_Freight');
 
 
-Route::get('/storage', function () {
-    return view('frontend.storage.storage');
-})->name('frontend.storage.storage');
 
 
 
@@ -105,6 +92,41 @@ Route::get('/storage', function () {
 Route::post('/profile/update', [UserProfileController::class, 'update'])->name('profile.update');
 Route::get('/profile', [UserProfileController::class, 'show'])->name('frontend.profile.profile')->middleware('auth');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+
+
+
+
+Route::get('/packeg', [ServiceController::class, 'index'])->name('services.index'); // لعرض جميع أنواع الخدمة
+Route::get('/service/{id}', [ServiceController::class, 'show'])->name('service.details'); // عرض تفاصيل خدمة محددة
+Route::get('/packages/{id}', [ServiceController::class, 'show'])->name('packages.show'); // عرض تفاصيل نوع حزمة محددة
+
+
+Route::post('/inventory/request', [InventoryRequestController::class, 'store'])->name('inventory.request');
+
+
+Route::middleware(['auth', 'user:1'])->group(function () {
+Route::get('/storage', function () {
+    return view('frontend.storage.storage');
+})->name('frontend.storage.storage');
+Route::get('/storage', [Controller::class, 'showEstimateForm'])->name('storage.form');
+Route::get('/storage/view/{id}', [InventoryRequestController::class, 'showStorageView'])->name('storage.view');
+});
+
+
+// مسارات تسجيل الدخول والتسجيل
+Route::get('/login', function () {
+    return view('login.Log in.login');
+})->name('login');
+
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+
+
+Route::get('/register', function () {
+    return view('login.Register.register');
+})->name('register');
+
+Route::post('/register', [RegisteredUserController::class, 'register'])->name('register.post');
 
 
 
@@ -148,15 +170,6 @@ Route::post('/storeWearhouse', [AdminController::class, 'InventoryLocation'])->n
 });
 
 
-
-Route::get('/packeg', [ServiceController::class, 'index'])->name('services.index'); // لعرض جميع أنواع الخدمة
-Route::get('/service/{id}', [ServiceController::class, 'show'])->name('service.details'); // عرض تفاصيل خدمة محددة
-Route::get('/packages/{id}', [ServiceController::class, 'show'])->name('packages.show'); // عرض تفاصيل نوع حزمة محددة
-
-
-Route::post('/inventory/request', [InventoryRequestController::class, 'store'])->name('inventory.request');
-Route::get('/storage', [Controller::class, 'showEstimateForm'])->name('storage.form');
-Route::get('/storage/view/{id}', [InventoryRequestController::class, 'showStorageView'])->name('storage.view');
 
 
 

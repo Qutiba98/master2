@@ -10,6 +10,10 @@ use App\Http\Controllers\Controller;
 
 class InventoryRequestController extends Controller
 {
+
+
+
+
     public function store(Request $request)
     {
 
@@ -78,7 +82,7 @@ class InventoryRequestController extends Controller
     {
         $users = User::all();
         $inventoryRequests = InventoryRequest::all(); // جلب جميع الطلبات
-
         return view('admin.showRequest', compact('users', 'inventoryRequests'));
     }
+    
 }

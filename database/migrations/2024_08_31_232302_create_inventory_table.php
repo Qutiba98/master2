@@ -21,7 +21,7 @@ class CreateInventoryTable extends Migration
 
             // إضافة المفتاح الخارجي
             $table->foreign('location_id')
-                ->references('id')->on('inventory_location')
+                ->references('id')->on('inventory_locations') // تعديل الاسم هنا
                 ->onDelete('cascade'); // تعديل عملية الحذف حسب الحاجة
 
             $table->unsignedInteger('space'); // Space should be integer, not string
@@ -30,7 +30,7 @@ class CreateInventoryTable extends Migration
     }
 
     /**
-     * ايلتراجع عن التهجير.
+     * التراجع عن التهجير.
      *
      * @return void
      */

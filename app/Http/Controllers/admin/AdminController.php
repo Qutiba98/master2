@@ -175,40 +175,35 @@ class AdminController extends Controller
 
     public function createWearhouse(){
 
-        return view ('admin.createWearhouse');
+    $idg = InventoryLocation::all();
+    return view('admin.createWearhouse', compact('idg'));
 
     }
 
 
 
 
+public function InventoryLocation(Request $request)
+{
+    // حفظ بيانات Location
+    $Location = new InventoryLocation();
+    $Location->name = $request->Locationname;
+    $Location->type = $request->type;
+    $Location->save();
 
-    public function InventoryLocation(Request $request)
-    {
-        // $request->validate([
-        //     'action' => 'required|in:accept,reject,pending',
-        //     'size' => 'required',
-        //     'location_id' => 'required',
-        // ]);
-        $Location =new InventoryLocation ();
-        $Location->name =$request->Locationname;
-        $Location->type =$request->type;
-        $Location->save();
+    // حفظ بيانات Inventory
+    $Inventory = new Inventory();
+    $Inventory->name = $request->Inventoryname;
+    $Inventory->location_id = $Location->id;
+    $Inventory->space = 500;
+    $Inventory->total_space = 0;
+    $Inventory->save();
 
-        $Inventory =new Inventory();
-        $Inventory->name=$request ->Inventoryname;
-        $Inventory->location_id=$Location->id;
-
-        $Inventory->space=500;
-        $Inventory->total_space=0;
-        
-        $Inventory->save();
-        return view ('admin.createWearhouse');
+    // تمرير البيانات إلى الـ view
+    return view('admin.createWearhouse', [
+    ]);
 
 }
-
-
-   
 
 
 

@@ -10,6 +10,7 @@ use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\InventoryRequest;
+use App\Models\InventoryLocation;
 
 class AdminController extends Controller
 {
@@ -170,4 +171,50 @@ class AdminController extends Controller
 
         return redirect()->route('admin.showRequest')->with('success', 'Request updated successfully.');
     }
+
+
+    public function createWearhouse(){
+
+        return view ('admin.createWearhouse');
+
+    }
+
+
+
+
+
+    public function InventoryLocation(Request $request)
+    {
+        // $request->validate([
+        //     'action' => 'required|in:accept,reject,pending',
+        //     'size' => 'required',
+        //     'location_id' => 'required',
+        // ]);
+        $Location =new InventoryLocation ();
+        $Location->name =$request->Locationname;
+        $Location->type =$request->type;
+        $Location->save();
+
+        $Inventory =new Inventory();
+        $Inventory->name=$request ->Inventoryname;
+        $Inventory->location_id=$Location->id;
+
+        $Inventory->space=500;
+        $Inventory->total_space=0;
+        
+        $Inventory->save();
+        return view ('admin.createWearhouse');
+
+}
+
+
+   
+
+
+
+
+
+
+
+
 }

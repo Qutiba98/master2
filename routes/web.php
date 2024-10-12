@@ -139,7 +139,11 @@ Route::get('/transfers/{id}/edit', [TransferController::class, 'edit'])->name('t
 Route::put('/transfers/{id}', [TransferController::class, 'update'])->name('transfers.update');
 
 Route::get('/showRequest.', [AdminController::class, 'showRequest'])->name('showRequest');
-    Route::patch('/requests/{id}', [AdminController::class, 'updateRequest'])->name('updateRequest');
+Route::patch('/requests/{id}', [AdminController::class, 'updateRequest'])->name('updateRequest');
+
+
+Route::get('/createWearhouse', [AdminController::class, 'createWearhouse'])->name('createWearhouse');
+Route::post('/storeWearhouse', [AdminController::class, 'InventoryLocation'])->name('storeWearhouse');
 
 });
 

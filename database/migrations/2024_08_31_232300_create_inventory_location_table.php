@@ -13,12 +13,11 @@ class CreateInventoryLocationTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventory_location', function (Blueprint $table) {
+        Schema::create('inventory_locations', function (Blueprint $table) {
             $table->id(); // عمود رئيسي من نوع bigint مع زيادة تلقائية
             $table->string('name'); // عمود لتخزين اسم الموقع
             $table->enum('type', ['local', 'global']); // عمود لتحديد نوع الموقع
             $table->string('status')->nullable(); // عمود لتخزين حالة المخزون، مع إمكانية أن يكون فارغًا
-
             $table->timestamps(); // ينشئ عمودين لتوقيت الإنشاء والتحديث
         });
     }
@@ -30,6 +29,6 @@ class CreateInventoryLocationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventory_location');
+        Schema::dropIfExists('inventory_locations');
     }
 }

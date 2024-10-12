@@ -11,13 +11,13 @@ class InventoryLocation extends Model
 
     protected $fillable = [
         'name',
-        'location_id',
+        'type',
         'status',
-        // أي أعمدة أخرى
+
     ];
 
     public function location()
     {
-        return $this->belongsTo(InventoryLocation::class, 'location_id');
+        return $this->belongsTo(InventoryLocation::class);
     }
 }

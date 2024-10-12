@@ -18,7 +18,7 @@ class Inventory extends Model
     protected $table = 'inventory';
     public function location()
     {
-        return $this->hasMany(InventoryLocation::class, 'location_id');
+        return $this->belongsTo(InventoryLocation::class);
     }
 
     public function products()

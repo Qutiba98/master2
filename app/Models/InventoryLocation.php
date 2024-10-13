@@ -20,4 +20,13 @@ class InventoryLocation extends Model
     {
         return $this->belongsTo(InventoryLocation::class);
     }
+
+
+    public function inventories()
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
+
+
 }

@@ -173,12 +173,19 @@ class AdminController extends Controller
     }
 
 
-    public function createWearhouse(){
+public function createWearhouse()
+{
+    // Retrieve all inventories along with their associated location data
+    $inventories = Inventory::with('location')->get();
 
-    $idg = InventoryLocation::all();
-    return view('admin.createWearhouse', compact('idg'));
+    // حساب مجموع المساحات لكل مستودع
+    $totalSpaceByWarehouse = $inventories->groupBy('location_id')->map(function ($group) {
+        return $group->sum('space');
+    });
 
-    }
+    // تمرير البيانات إلى الـ view
+    return view('admin.createWearhouse', compact('inventories', 'totalSpaceByWarehouse'));
+}
 
 
 

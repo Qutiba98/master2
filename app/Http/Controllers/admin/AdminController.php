@@ -173,7 +173,7 @@ class AdminController extends Controller
     }
 
 
-public function createWearhouse()
+public function createWearhouse1()
 {
     // Retrieve all inventories along with their associated location data
     $inventories = Inventory::with('location')->get();
@@ -184,35 +184,50 @@ public function createWearhouse()
     });
 
     // تمرير البيانات إلى الـ view
-    return view('admin.createWearhouse', compact('inventories', 'totalSpaceByWarehouse'));
+    return view('admin.CreateWearhouse.ShowWearhouse', compact('inventories', 'totalSpaceByWarehouse'));
 }
 
 
-
-
+public function createWearhouse()
+{
+    return view('admin.CreateWearhouse.createWearhouse');
+}
 public function InventoryLocation(Request $request)
 {
-    // حفظ بيانات Location
-    $Location = new InventoryLocation();
-    $Location->name = $request->Locationname;
-    $Location->type = $request->type;
-    $Location->save();
-
-    // حفظ بيانات Inventory
-    $Inventory = new Inventory();
-    $Inventory->name = $request->Inventoryname;
-    $Inventory->location_id = $Location->id;
-    $Inventory->space = 500;
-    $Inventory->total_space = 0;
-    $Inventory->save();
-
-    // تمرير البيانات إلى الـ view
-    return view('admin.createWearhouse', [
+    $request->validate([
+        'Locationname' => 'required|string',
+        'type' => 'required|string',
+        'Inventoryname' => 'required|string',
+        'space' => 'required|integer',
     ]);
 
+    // Check for existing Location with the same name
+    $existingLocation = InventoryLocation::where('name', $request->Locationname)->first();
+    // Check for existing Inventory with the same name
+    $existingInventory = Inventory::where('name', $request->Inventoryname)->first();
+
+    if ($existingLocation) {
+        return back()->withErrors(['Locationname' => 'This name already exists in the database.']);
+    }
+
+
+    // Save Location data
+    $location = new InventoryLocation();
+    $location->name = $request->Locationname;
+    $location->type = $request->type;
+    $location->save();
+
+    // Save Inventory data
+    $inventory = new Inventory();
+    $inventory->name = $request->Inventoryname;
+    $inventory->location_id = $location->id;
+    $inventory->space = $request->space;
+    $inventory->total_space = 0;
+    $inventory->save();
+
+    // Redirect to view with success message
+    return redirect()->route('admin.CreateWearhouse.createWearhouse')->with('success', 'Location and inventory added successfully.');
 }
-
-
 
 
 

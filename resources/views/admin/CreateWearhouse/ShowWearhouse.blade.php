@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,77 +94,109 @@
             text-align: center;
             color: #f0f0f0;
         }
+
+
+.my-custom-error-alert {
+    background-color: #555252; /* Light red background */
+    color: #ffffff; /* Dark red text */
+    border: 1px solid #e20b20; /* Red border */
+    padding: 15px; /* Padding */
+    margin-bottom: 20px; /* Margin at the bottom */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+}
+
+.my-custom-alert {
+    background-color: #3fa457; /* Light green background */
+    color: #155724; /* Dark green text */
+    border: 1px solid #1a7e31; /* Green border */
+    padding: 15px; /* Padding */
+    margin-bottom: 20px; /* Margin at the bottom */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+}
+
+
+
     </style>
 
 </head>
 
 <body>
 
+
+
     @include('layout.dash')
-
     <div class="container mt-5">
-        <h1>Create Inventory</h1>
 
-        <form action="{{ route('admin.storeWearhouse') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="location">Location Wearhouse</label>
-                <select name="Locationname" class="form-control" required>
-                    <option value="">Select Wearhouse</option>
-                    <option value="Amman">Amman</option>
-                    <option value="Salt">Salt</option>
-                    <option value="Irbad">Irbad</option>
-                </select>
 
-                <label for="type">Type</label>
-                <select name="type" class="form-control" required>
-                    <option value="" disabled selected>Select type</option>
-                    <option value="global">Global</option>
-                    <option value="local">Local</option>
-                </select>
+<table class="custom-table mt-5">
 
-                <label for="name">Name</label>
-                <select name="Inventoryname" class="form-control" required>
-                    <option value="">Select category</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                </select>
-            </div>
+@if ($errors->any())
+    <div class="alert my-custom-error-alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
-            <button type="submit" class="btn btn-primary btn-block">Create Inventory</button>
-        </form>
+@if (session('success'))
+    <div class="alert my-custom-alert">
+        {{ session('success') }}
+    </div>
+@endif
 
-        <table class="custom-table mt-5">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Wearhouse Name</th>
-                    <th>Wearhouse ID</th>
-                    <th>Space (sqm)</th>
-                    <th>Total Space (sqm)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($inventories as $inventory)
+
+
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Warehouse Name</th>
+            <th>Warehouse ID</th>
+            <th>Space (sqm)</th>
+            <th>Total Space (sqm)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(isset($inventories) && $inventories->isNotEmpty())
+            @foreach($inventories as $inventory)
                 <tr>
                     <td>{{ $inventory->id }}</td>
-                    <td>{{ $inventory->location->name }}</td>
-                    <td>{{ $inventory->name }}</td>
-                    <td>{{ $inventory->space }}</td>
-                    <td>{{ $inventory->total_space }}</td>
+                    <td>{{ $inventory->location->name ?? '' }}</td>
+                    <td>{{ $inventory->name ?? '' }}</td>
+                    <td>{{ $inventory->space ?? '' }}</td>
+                    <td>{{ $inventory->total_space ?? '' }}</td>
                 </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                @foreach($totalSpaceByWarehouse as $locationId => $totalSpace)
+            @endforeach
+        @else
+            <tr>
+                <td colspan="5"></td>
+            </tr>
+        @endif
+    </tbody>
+    <tfoot>
+        @if(isset($totalSpaceByWarehouse) && $totalSpaceByWarehouse->isNotEmpty())
+            @foreach($totalSpaceByWarehouse as $locationId => $totalSpace)
                 <tr class="highlight">
-                    <td colspan="3">Total Space for {{ $inventories->where('location_id', $locationId)->first()->location->name }}</td>
+                    <td colspan="3">
+                        @php
+                            $location = $inventories->where('location_id', $locationId)->first();
+                        @endphp
+                        {{ $location ? $location->location->name : '' }}
+                    </td>
                     <td colspan="2"><strong>{{ $totalSpace }} sqm</strong></td>
                 </tr>
-                @endforeach
-            </tfoot>
-        </table>
+            @endforeach
+        @else
+            <tr>
+                <td colspan="5"></td>
+            </tr>
+        @endif
+    </tfoot>
+</table>
 
     </div>
 

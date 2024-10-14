@@ -164,7 +164,11 @@ Route::get('/showRequest.', [AdminController::class, 'showRequest'])->name('show
 Route::patch('/requests/{id}', [AdminController::class, 'updateRequest'])->name('updateRequest');
 
 
+Route::get('/ShowWearhouse1', [AdminController::class, 'createWearhouse1'])->name('createWearhouse1');
 Route::get('/createWearhouse', [AdminController::class, 'createWearhouse'])->name('createWearhouse');
+
+
+
 Route::post('/storeWearhouse', [AdminController::class, 'InventoryLocation'])->name('storeWearhouse');
 
 });

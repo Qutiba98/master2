@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New User</title>
+    <base href="{{ url('/') }}/" target="_self">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+
 </head>
 <body>
 
 @include('layout.dash')
 
 <div class="container mt-5">
-    <h2 class="mb-4">Create New User</h2>
+    <h2 class="mb-4" >Create New User</h2>
 
     <!-- Success Message -->
     @if(session('success'))
@@ -50,10 +52,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="role_id">Role</label>
-                    <select id="role_id" name="role_id" class="form-control" required>
+                    <label  for="role_id">Role</label>
+                    <select  id="role_id" name="role_id" class="form-control" required>
                         @foreach($roles as $role)
-                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            <option style="color: white" value="{{ $role->id }}">{{ $role->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -63,6 +65,17 @@
         </div>
     </div>
 </div>
+
+<style>
+
+body{
+    color: white
+}
+
+
+</style>
+
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

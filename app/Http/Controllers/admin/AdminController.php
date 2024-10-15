@@ -18,7 +18,7 @@ class AdminController extends Controller
     public function createUser()
     {
         $roles = Role::all();
-        return view('admin.createuser', compact('roles'));
+        return view('admin.Create User.createuser', compact('roles'));
     }
 
     // معالجة تقديم نموذج تسجيل مستخدم جديد
@@ -55,15 +55,41 @@ class AdminController extends Controller
     public function showUsers()
     {
         $users = User::all();
-        return view('admin.showuser', compact('users'));
+        return view('admin.Create User.showuser', compact('users'));
     }
+
+
+    public function Dashboard()
+    {
+        $users = User::all(); // استرداد جميع المستخدمين
+        return view('admin.Dashboard', compact('users')); // تمرير جميع المستخدمين إلى العرض
+    }
+
+public function showDashboard()
+{
+    $inventoryRequests = InventoryRequest::with('user')->get(); // جلب جميع الطلبات
+    return view('admin.Dashboard', compact('inventoryRequests'));
+}
+
+
+
+public function someFunction()
+{
+    if (!$user->hasAccess()) {
+        return redirect()->route('admin.home')->with('error', 'You do not have access to this page.');
+    }
+
+}
+
+
+
 
     // عرض نموذج تعديل مستخدم
     public function edit($id)
     {
         $user = User::findOrFail($id);
         $roles = Role::all();
-        return view('admin.edituser', compact('user', 'roles'));
+        return view('admin.Create User.edituser', compact('user', 'roles'));
     }
 
     // معالجة تقديم نموذج تعديل مستخدم
@@ -133,6 +159,8 @@ class AdminController extends Controller
     }
 
 
+
+
     public function updateRequest(Request $request, $id)
     {
         $request->validate([
@@ -192,6 +220,7 @@ public function createWearhouse()
 {
     return view('admin.CreateWearhouse.createWearhouse');
 }
+
 public function InventoryLocation(Request $request)
 {
     $request->validate([
@@ -228,6 +257,7 @@ public function InventoryLocation(Request $request)
     // Redirect to view with success message
     return redirect()->route('admin.CreateWearhouse.createWearhouse')->with('success', 'Location and inventory added successfully.');
 }
+
 
 
 

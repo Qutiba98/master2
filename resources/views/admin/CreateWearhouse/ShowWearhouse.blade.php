@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,8 +16,13 @@
             color: #c4c4c4;
         }
 
+        .container {
+            margin-top: 30px;
+        }
+
         h1 {
-            color: #00c89e;
+            color: #ffffff;
+            margin-bottom: 20px;
         }
 
         label {
@@ -35,17 +38,17 @@
         .form-control:focus {
             background-color: #333;
             color: #fff;
-            border-color: #00c89e;
+            border-color: #ffffff;
             box-shadow: none;
         }
 
         .btn-primary {
-            background-color: #00c89e;
+            background-color: #ffffff;
             border: none;
         }
 
         .btn-primary:hover {
-            background-color: #009e7e;
+            background-color: #ffffff;
         }
 
         .custom-table {
@@ -60,7 +63,7 @@
         .custom-table thead th {
             background-color: #282a2c;
             padding: 12px;
-            border-bottom: 2px solid #00c89e;
+            border-bottom: 2px solid #ffffff;
         }
 
         .custom-table tbody tr {
@@ -78,131 +81,102 @@
             padding: 12px;
         }
 
-        .custom-table .highlight {
-            background-color: #343636;
-            font-weight: bold;
-            color: #fcfcfc;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .custom-table strong {
-            color: #00c89e;
-        }
-
         footer {
             margin-top: 20px;
             text-align: center;
             color: #f0f0f0;
         }
 
+        .my-custom-error-alert {
+            background-color: #555252;
+            color: #ffffff;
+            border: 1px solid #e20b20;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
 
-.my-custom-error-alert {
-    background-color: #555252; /* Light red background */
-    color: #ffffff; /* Dark red text */
-    border: 1px solid #e20b20; /* Red border */
-    padding: 15px; /* Padding */
-    margin-bottom: 20px; /* Margin at the bottom */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size */
-}
-
-.my-custom-alert {
-    background-color: #3fa457; /* Light green background */
-    color: #155724; /* Dark green text */
-    border: 1px solid #1a7e31; /* Green border */
-    padding: 15px; /* Padding */
-    margin-bottom: 20px; /* Margin at the bottom */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size */
-}
-
-
-
+        .my-custom-alert {
+            background-color: #ffffff;
+            border: 1px solid #ffffff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
     </style>
 
 </head>
 
 <body>
 
-
-
     @include('layout.dash')
+
     <div class="container mt-5">
+        <h1>Wearhouse</h1>
 
+        @if ($errors->any())
+            <div class="alert my-custom-error-alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-<table class="custom-table mt-5">
+        @if (session('success'))
+            <div class="alert my-custom-alert">
+                {{ session('success') }}
+            </div>
+        @endif
 
-@if ($errors->any())
-    <div class="alert my-custom-error-alert">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-@if (session('success'))
-    <div class="alert my-custom-alert">
-        {{ session('success') }}
-    </div>
-@endif
-
-
-
-
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Warehouse Name</th>
-            <th>Warehouse ID</th>
-            <th>Space (sqm)</th>
-            <th>Total Space (sqm)</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if(isset($inventories) && $inventories->isNotEmpty())
-            @foreach($inventories as $inventory)
+        <table class="custom-table mt-5">
+            <thead>
                 <tr>
-                    <td>{{ $inventory->id }}</td>
-                    <td>{{ $inventory->location->name ?? '' }}</td>
-                    <td>{{ $inventory->name ?? '' }}</td>
-                    <td>{{ $inventory->space ?? '' }}</td>
-                    <td>{{ $inventory->total_space ?? '' }}</td>
+                    <th>ID</th>
+                    <th>Warehouse Name</th>
+                    <th>Warehouse ID</th>
+                    <th>Space (sqm)</th>
+                    <th>Total Space (sqm)</th>
                 </tr>
-            @endforeach
-        @else
-            <tr>
-                <td colspan="5"></td>
-            </tr>
-        @endif
-    </tbody>
-    <tfoot>
-        @if(isset($totalSpaceByWarehouse) && $totalSpaceByWarehouse->isNotEmpty())
-            @foreach($totalSpaceByWarehouse as $locationId => $totalSpace)
-                <tr class="highlight">
-                    <td colspan="3">
-                        @php
-                            $location = $inventories->where('location_id', $locationId)->first();
-                        @endphp
-                        {{ $location ? $location->location->name : '' }}
-                    </td>
-                    <td colspan="2"><strong>{{ $totalSpace }} sqm</strong></td>
-                </tr>
-            @endforeach
-        @else
-            <tr>
-                <td colspan="5"></td>
-            </tr>
-        @endif
-    </tfoot>
-</table>
-
+            </thead>
+            <tbody>
+                @if(isset($inventories) && $inventories->isNotEmpty())
+                    @foreach($inventories as $inventory)
+                        <tr>
+                            <td>{{ $inventory->id }}</td>
+                            <td>{{ $inventory->location->name ?? '' }}</td>
+                            <td>{{ $inventory->name ?? '' }}</td>
+                            <td>{{ $inventory->space ?? '' }}</td>
+                            <td>{{ $inventory->total_space ?? '' }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="5">No inventories found.</td>
+                    </tr>
+                @endif
+            </tbody>
+            <tfoot>
+                @if(isset($totalSpaceByWarehouse) && $totalSpaceByWarehouse->isNotEmpty())
+                    @foreach($totalSpaceByWarehouse as $locationId => $totalSpace)
+                        <tr>
+                            <td colspan="3">{{ $inventories->where('location_id', $locationId)->first()->location->name ?? '' }}</td>
+                            <td colspan="2"><strong>{{ $totalSpace }} sqm</strong></td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="5">No total space found.</td>
+                    </tr>
+                @endif
+            </tfoot>
+        </table>
     </div>
 
-    <footer>
-        &copy; 2024 Your Company. All rights reserved.
-    </footer>
+ 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

@@ -24,6 +24,7 @@ body {
   font-family: "Poppins", sans-serif;
   font-weight: normal;
   font-style: normal;
+  color: white;
 }
 
 /* line 12, ../../Arafath/CL/Cl November/223. Transportation/HTML/scss/theme-default.scss */
@@ -74,7 +75,7 @@ button {
 /* line 39, ../../Arafath/CL/Cl November/223. Transportation/HTML/scss/theme-default.scss */
 h1, h2, h3, h4, h5 {
   font-family: "Poppins", sans-serif;
-  color: #001D38;
+  color: #ffffff;
 }
 
 /* line 43, ../../Arafath/CL/Cl November/223. Transportation/HTML/scss/theme-default.scss */
@@ -110,7 +111,7 @@ p {
 
 /* line 68, ../../Arafath/CL/Cl November/223. Transportation/HTML/scss/theme-default.scss */
 label {
-  color: #7e7e7e;
+  color: #ffffff;
   cursor: pointer;
   font-size: 14px;
   font-weight: 400;
@@ -119,7 +120,7 @@ label {
 /* line 74, ../../Arafath/CL/Cl November/223. Transportation/HTML/scss/theme-default.scss */
 *::-moz-selection {
   background: #444;
-  color: #fff;
+  color: #ffffff;
   text-shadow: none;
 }
 
@@ -8104,6 +8105,7 @@ h6 {
   display: inline-block;
   margin-bottom: 10px;
 }
+
 
 /* line 1061, ../../Arafath/CL/Cl November/223. Transportation/HTML/scss/_blog.scss */
 .single-post-area .social-links li a {

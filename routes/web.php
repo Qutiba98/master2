@@ -133,11 +133,21 @@ Route::post('/register', [RegisteredUserController::class, 'register'])->name('r
 // صفحات الأدمن، فقط الأدمن والسوبر أدمن يمكنهم الوصول إليها
 Route::middleware(['auth', 'admin:2|3'])->prefix('admin')->name('admin.')->group(function () {
     // الصفحة الرئيسية للمدير
-    Route::get('/', function () {
-        return view('admin.home');
-    })->name('home');
+    
+Route::get('/admin/home', function () {
+    return view('admin.Dashboard'); // تأكد من أن هذا العرض موجود في resources/views/admin
+})->name('admin.home');
+
+
+Route::get('/admin/home', [AdminController::class, 'showRequestDashbord'])->name('admin.home');
+
+Route::get('/admin/home', [AdminController::class, 'Dashboard'])->name('admin.home');
+
+Route::get('/', [AdminController::class, 'Dashboard'])->name('Dashboard'); // تعيين المسار الجذري
+
     // مسارات إدارة المستخدمين
     Route::get('/showuser', [AdminController::class, 'showUsers'])->name('showUsers');
+
     Route::get('/users/create', [AdminController::class, 'createUser'])->name('createuser');
     Route::post('/users', [AdminController::class, 'storeUser'])->name('storeUser');
 

@@ -8919,7 +8919,7 @@ select.form-control:focus::-ms-value, select.asColorPicker-input:focus::-ms-valu
 .jsgrid .jsgrid-table .jsgrid-filter-row select:focus::-ms-value, .select2-container--default select.select2-selection--single:focus::-ms-value, .select2-container--default .select2-selection--single select.select2-search__field:focus::-ms-value, select.typeahead:focus::-ms-value,
 select.tt-query:focus::-ms-value,
 select.tt-hint:focus::-ms-value {
-  color: #495057;
+  color: #ffffff;
   background-color: #2A3038; }
 
 .form-control-file,
@@ -16937,10 +16937,13 @@ code {
   .tt-hint:focus {
     border: 1px solid rgba(71, 164, 71, 0.5);
     background-color: #2A3038; }
-  .form-control.form-control-lg, .form-control-lg.asColorPicker-input, .dataTables_wrapper select.form-control-lg, .jsgrid .jsgrid-table .jsgrid-filter-row input.form-control-lg[type=text],
+  .form-control.form-control-lg, .form-control-lg.asColorPicker-input, 
+ .dataTables_wrapper select.form-control-lg, .jsgrid .jsgrid-table .jsgrid-filter-row input.form-control-lg[type=text],
   .jsgrid .jsgrid-table .jsgrid-filter-row select.form-control-lg, .jsgrid .jsgrid-table .jsgrid-filter-row input.form-control-lg[type=number], .select2-container--default .form-control-lg.select2-selection--single, .select2-container--default .select2-selection--single .form-control-lg.select2-search__field, .form-control-lg.typeahead,
   .form-control-lg.tt-query,
-  .form-control-lg.tt-hint {
+  .form-control-lg.tt-hint 
+  
+  {
     padding: 0.94rem .75rem;
     height: calc(2.875rem + 2px); }
   .form-control.form-control-sm, .form-control-sm.asColorPicker-input, .dataTables_wrapper select.form-control-sm, .jsgrid .jsgrid-table .jsgrid-filter-row input.form-control-sm[type=text],
@@ -16974,7 +16977,7 @@ select.tt-query,
 select.tt-hint {
   padding: .4375rem .75rem;
   border: 0;
-  color: #4b5564; }
+  color: white; }
   select.form-control:focus, select.asColorPicker-input:focus, .dataTables_wrapper select:focus,
   .jsgrid .jsgrid-table .jsgrid-filter-row select:focus, .select2-container--default select.select2-selection--single:focus, .select2-container--default .select2-selection--single select.select2-search__field:focus, select.typeahead:focus,
   select.tt-query:focus,
@@ -17887,7 +17890,7 @@ div.tagsinput {
     border-top: 0;
     border-bottom-width: 1px;
     font-weight: 500;
-    color: #6c7293; }
+    color: #ffffff; }
     .table thead th i, .jsgrid .jsgrid-table thead th i {
       margin-left: 0.325rem; }
   .table th, .jsgrid .jsgrid-table th,
@@ -17896,7 +17899,10 @@ div.tagsinput {
     vertical-align: middle;
     font-size: 0.875rem;
     line-height: 1;
-    white-space: nowrap; }
+    white-space: nowrap; 
+    color: #ffffff;
+  
+  }
     .table th img, .jsgrid .jsgrid-table th img,
     .table td img,
     .jsgrid .jsgrid-table td img {
@@ -20726,7 +20732,7 @@ div.tagsinput {
               font-size: inherit;
               color: inherit; }
         .sidebar .nav .nav-item .nav-link .menu-title {
-          color: inherit;
+          color: white;
           display: inline-block;
           font-size: 0.9375rem;
           line-height: 1;
@@ -20866,12 +20872,14 @@ div.tagsinput {
         padding: 0.5rem 1.188rem;
         line-height: 1; }
         .sidebar .nav .nav-item.nav-category .nav-link {
-          color: #6c7293;
           font-weight: 500;
           font-size: 14px;
           font-weight: 500;
           height: auto;
-          padding-left: 0; }
+          padding-left: 0; 
+        color: white;
+        
+        }
       .sidebar .nav .nav-item .menu-icon {
         margin-right: 0.5rem;
         font-size: 0.8125rem;

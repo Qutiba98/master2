@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\AdminController; // استيراد AdminController
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\UserProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\TransferController;
@@ -139,13 +139,13 @@ Route::get('/admin/home', function () {
 })->name('admin.home');
 
 
-Route::get('/admin/home', [AdminController::class, 'showRequestDashbord'])->name('admin.home');
-
+// Route::get('/admin/home', [AdminController::class, 'showRequestDashbord'])->name('admin.home');
 Route::get('/admin/home', [AdminController::class, 'Dashboard'])->name('admin.home');
+Route::get('/', [AdminController::class, 'Dashboard'])->name('Dashboard');
 
-Route::get('/', [AdminController::class, 'Dashboard'])->name('Dashboard'); // تعيين المسار الجذري
 
-    // مسارات إدارة المستخدمين
+// Route::get('/admin/home',[AdminController::class,'showTotalPrice'])->name('admin.home');
+
     Route::get('/showuser', [AdminController::class, 'showUsers'])->name('showUsers');
 
     Route::get('/users/create', [AdminController::class, 'createUser'])->name('createuser');

@@ -59,17 +59,38 @@ class AdminController extends Controller
     }
 
 
-    public function Dashboard()
-    {
-        $users = User::all(); // استرداد جميع المستخدمين
-        return view('admin.Dashboard', compact('users')); // تمرير جميع المستخدمين إلى العرض
-    }
-
-public function showDashboard()
+public function dashboard()
 {
-    $inventoryRequests = InventoryRequest::with('user')->get(); // جلب جميع الطلبات
-    return view('admin.Dashboard', compact('inventoryRequests'));
+    // Call createWearhouse1 to get the warehouse data
+    $warehouseData = $this->createWearhouse1();
+
+    // Extract the inventories and total space from the warehouse data
+    $inventories = $warehouseData['inventories'];
+    $totalSpaceByWarehouse = $warehouseData['totalSpaceByWarehouse'];
+
+    $users = User::with('inventoryRequests')->get();
+
+    // ترتيب المستخدمين بناءً على حالة الطلبات المرتبطة بهم
+    $sortedUsers = $users->sortBy(function($user) {
+        if ($user->inventoryRequests->isNotEmpty()) {
+            return $user->inventoryRequests->min('status_id');
+        } else {
+            return 4;
+        }
+    });
+
+    // إحصائيات الطلبات الشهرية مع السنة
+    $monthlyRequests = InventoryRequest::selectRaw('COUNT(id) as total, MONTH(created_at) as month, YEAR(created_at) as year')
+        ->where('status_id', 2) // جلب الطلبات المقبولة فقط
+        ->groupBy('year', 'month')
+        ->orderBy('year', 'asc')
+        ->orderBy('month', 'asc')
+        ->get();
+
+    return view('admin.dashboard', compact('sortedUsers', 'monthlyRequests', 'inventories', 'totalSpaceByWarehouse'));
 }
+
+
 
 
 
@@ -161,6 +182,7 @@ public function someFunction()
 
 
 
+
     public function updateRequest(Request $request, $id)
     {
         $request->validate([
@@ -204,14 +226,18 @@ public function someFunction()
 public function createWearhouse1()
 {
     // Retrieve all inventories along with their associated location data
-    $inventories = Inventory::with('location')->get();
+   $inventories = Inventory::with('location')->get();
 
-    // حساب مجموع المساحات لكل مستودع
-    $totalSpaceByWarehouse = $inventories->groupBy('location_id')->map(function ($group) {
-        return $group->sum('space');
-    });
+    // حساب مجموع المساحات الإجمالية لكل مستودع واسترجاع الاسم
+    $totalSpaceByWarehouse = $inventories->groupBy('name')->map(function ($group) {
+        return [
+            'total_space' => $group->sum('total_space'),
+            'inventory_name' => $group->first()->name, // استرجاع اسم المستودع من جدول Inventory
+            'location_name' => $group->first()->location->name, // استرجاع الاسم من جدول inventory_locations
+            'space' => $group->pluck('space'), // المساحات الفردية
 
-    // تمرير البيانات إلى الـ view
+        ];
+    });    // تمرير البيانات إلى الـ view
     return view('admin.CreateWearhouse.ShowWearhouse', compact('inventories', 'totalSpaceByWarehouse'));
 }
 

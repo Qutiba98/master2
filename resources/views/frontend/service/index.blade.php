@@ -30,6 +30,7 @@
 
 body {
   background: #F0EDED;
+  color: rgb(210, 90, 90);
 }
 
 #wrapper {
@@ -162,7 +163,6 @@ body {
 
 
         @php
-            // الحصول على جميع الأسعار في مصفوفة
             $pricing = $packageType->packagePricing->keyBy('duration');
         @endphp
 

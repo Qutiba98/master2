@@ -77,22 +77,45 @@
                             <th>Message</th>
                             <th>Total Price</th>
                             <th>Request Date</th>
+
+    @foreach($inventoryRequests as $request)
+        <th style="{{ $inventoryRequests->contains(fn($request) => $request->status_id == 4) ? '' : 'display: none;' }}">Start Date</th>
+        <th style="{{ $inventoryRequests->contains(fn($request) => $request->status_id == 4) ? '' : 'display: none;' }}">End Date</th>
+    @endforeach
+
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($inventoryRequests as $request)
-                            <tr>
-                                <td>{{ $request->id }}</td>
-                                <td>{{ $request->housing_details }}</td>
-                                <td>{{ $request->status_id }}</td>
-                                <td>{{ $request->size }}</td>
-                                <td>{{ $request->breakable }}</td>
-                                <td>{{ $request->delivery_service }}</td>
-                                <td>{{ $request->message }}</td>
-                                <td>{{ $request->total_price }}</td>
-                                <td>{{ $request->created_at->format('d/m/Y') }}</td>
-                            </tr>
-                        @endforeach
+    @foreach($inventoryRequests as $request)
+        <tr>
+            <td>{{ $request->id }}</td>
+            <td>{{ $request->housing_details }}</td>
+            <td>
+                @if ($request->status_id == 1)
+                    Pending
+                @elseif ($request->status_id == 2)
+                    In Progress
+                @elseif ($request->status_id == 3)
+                    Rejected
+                @elseif ($request->status_id == 4)
+                    Accepted
+                @else
+                    Unknown Status
+                @endif
+            </td>
+            <td>{{ $request->size }}</td>
+            <td>{{ $request->breakable }}</td>
+            <td>{{ $request->delivery_service }}</td>
+            <td>{{ $request->message }}</td>
+            <td>{{ $request->total_price }}</td>
+            <td>{{ $request->created_at->format('d/m/Y') }}</td>
+
+            <td style="{{ $request->status_id == 4 ? '' : 'display: none;' }}">{{ $request->start_date }}</td>
+            <td style="{{ $request->status_id == 4 ? '' : 'display: none;' }}">{{ $request->end_date }}</td>
+
+
+        </tr>
+    @endforeach
                     </tbody>
                 </table>
             </div>

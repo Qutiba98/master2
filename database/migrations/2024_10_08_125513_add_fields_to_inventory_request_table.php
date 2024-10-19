@@ -20,6 +20,9 @@ class AddFieldsToInventoryRequestTable extends Migration
             $table->string('storage_duration'); // إضافة عمود مدة التخزين
             $table->decimal('total_price', 10, 2)->nullable(); // إضافة العمود هنا
 
+            $table->date('start_date')->nullable(); // إضافة عمود start_date لتخزين تاريخ بدء الحجز
+            $table->timestamp('end_date')->nullable(); // إضافة عمود تاريخ الانتهاء
+
             // إضافة عمود location_id مع المفتاح الخارجي
             $table->unsignedBigInteger('location_id')->nullable(); // عمود location_id
             $table->foreign('location_id')
@@ -27,6 +30,7 @@ class AddFieldsToInventoryRequestTable extends Migration
                   ->onDelete('set null'); // أو 'cascade' حسب احتياجك
         });
     }
+
     public function down()
     {
         Schema::table('inventory_request', function (Blueprint $table) {
@@ -48,6 +52,7 @@ class AddFieldsToInventoryRequestTable extends Migration
                 'message', 
                 'storage_duration',
                 'total_price', // إضافة total_price هنا
+                // 'end_date', // حذف end_date هنا أيضًا
             ]);
         });
     }

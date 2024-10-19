@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\InventoryRequest;
 use App\Models\InventoryLocation;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -183,44 +184,61 @@ public function someFunction()
 
 
 
-    public function updateRequest(Request $request, $id)
-    {
-        $request->validate([
-            'action' => 'required|in:accept,reject,pending',
-            'size' => 'required',
-            'location_id' => 'required',
-        ]);
+public function updateRequest(Request $request, $id)
+{
+    // التحقق من صحة البيانات
+    $request->validate([
+        'action' => 'required|in:accept,reject,pending',
+        'size' => 'required',
+        'location_id' => 'required',
+    ]);
 
-        $inventoryRequest = InventoryRequest::findOrFail($id);
-        $updateSpace = Inventory::where('location_id', $request->location_id)->first();
+    $inventoryRequest = InventoryRequest::findOrFail($id);
+    $updateSpace = Inventory::where('location_id', $request->location_id)->first();
 
-        if ($request->action == 'accept') {
-            // Cast both space and size to integers
-            $space = (int) $updateSpace->space;
-            $size = (int) $request->size;
+    if ($request->action == 'accept') {
+        // تحويل القيم إلى أرقام
+        $space = (int) $updateSpace->space;
+        $size = (int) $request->size;
 
-            // Check if the requested size is greater than available space
-            if ($size > $space) {
-                $inventoryRequest->status_id = 3; // Set status to "rejected"
-            } else {
-                $inventoryRequest->status_id = 2; // Set status to "in progress"
-                $updateSpace->space = $space - $size; // Subtract size from space
-                $updateSpace->total_space += $size;
+        // التحقق إذا كانت المساحة المطلوبة أكبر من المساحة المتاحة
+        if ($size > $space) {
+            $inventoryRequest->status_id = 3; // رفض الطلب
+        } else {
+            $inventoryRequest->status_id = 2; // الطلب "قيد التنفيذ"
+            $updateSpace->space = $space - $size; // طرح الحجم من المساحة المتاحة
+            $updateSpace->total_space += $size;
 
-                // Save the updated space
-                $updateSpace->save(); // This line is crucial for saving changes
+            // تعيين تاريخ البداية (اليوم الحالي)
+            $inventoryRequest->start_date = Carbon::now();
+
+            // تعيين تاريخ النهاية بناءً على مدة التخزين
+            if ($inventoryRequest->storage_duration === '1 month') {
+                $inventoryRequest->end_date = Carbon::now()->addMonth();
+            } elseif ($inventoryRequest->storage_duration === '3 months') {
+                $inventoryRequest->end_date = Carbon::now()->addMonths(3);
+            } elseif ($inventoryRequest->storage_duration === '6 months') {
+                $inventoryRequest->end_date = Carbon::now()->addMonths(6);
+            } elseif ($inventoryRequest->storage_duration === '1 year') {
+                $inventoryRequest->end_date = Carbon::now()->addYear();
             }
-        } elseif ($request->action == 'reject') {
-            $inventoryRequest->status_id = 3; // Set status to "rejected"
-        } elseif ($request->action == 'pending') {
-            $inventoryRequest->status_id = 1; // Set status to "pending"
+
+            // حفظ المساحة المحدثة
+            $updateSpace->save();
         }
-
-        // Save the inventory request update
-        $inventoryRequest->save();
-
-        return redirect()->route('admin.showRequest')->with('success', 'Request updated successfully.');
+    } elseif ($request->action == 'reject') {
+        $inventoryRequest->status_id = 3; // الطلب مرفوض
+    } elseif ($request->action == 'pending') {
+        $inventoryRequest->status_id = 1; // الطلب "معلق"
     }
+
+    // حفظ تحديثات الطلب
+    $inventoryRequest->save();
+
+    return redirect()->route('admin.showRequest')->with('success', 'Request updated successfully.');
+}
+
+
 
 
 public function createWearhouse1()
@@ -281,7 +299,7 @@ public function InventoryLocation(Request $request)
     $inventory->save();
 
     // Redirect to view with success message
-    return redirect()->route('admin.CreateWearhouse.createWearhouse')->with('success', 'Location and inventory added successfully.');
+    return redirect()->route('admin.CreateWearhouse.ShowWearhouse')->with('success', 'Location and inventory added successfully.');
 }
 
 

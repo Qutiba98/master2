@@ -289,6 +289,7 @@ public function createWearhouse1()
 
         ];
     });    // تمرير البيانات إلى الـ view
+    // dd($totalSpaceByWarehouse);
     return view('admin.CreateWearhouse.ShowWearhouse', compact('inventories', 'totalSpaceByWarehouse'));
 }
 
@@ -332,7 +333,7 @@ public function InventoryLocation(Request $request)
     $inventory->save();
 
     // Redirect to view with success message
-    return redirect()->route('admin.CreateWearhouse.ShowWearhouse')->with('success', 'Location and inventory added successfully.');
+    return view('admin.CreateWearhouse.createWearhouse');
 }
 
 

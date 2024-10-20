@@ -164,7 +164,7 @@
                     @foreach($totalSpaceByWarehouse as $locationId => $totalSpace)
                         <tr>
                             <td colspan="3">{{ $inventories->where('location_id', $locationId)->first()->location->name ?? '' }}</td>
-                            <td colspan="2"><strong>{{ $totalSpace }} sqm</strong></td>
+                            <td colspan="2"><strong>{{ $totalSpace['total_space'] }} sqm</strong></td>
                         </tr>
                     @endforeach
                 @else

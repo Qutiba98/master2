@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/magnific-popup.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -18,7 +17,13 @@
     <link rel="stylesheet" href="css/slicknav.css">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <style>
+        /* تأكد من أن النص في كل الأعمدة متساوي في المحاذاة */
+        .table td, .table th {
+            vertical-align: middle; /* لضبط العمود في المنتصف */
+            text-align: center; /* لمحاذاة النص إلى المنتصف */
+        }
+    </style>
 </head>
 <body>
     <x-navigation />
@@ -32,7 +37,7 @@
 
         <!-- Display user information -->
         <div class="card mb-4">
-            <div class="card-header">User Information</div>
+            <div class="card-header" style="color: black">User Information</div>
             <div class="card-body">
                 <form action="{{ route('profile.update') }}" method="POST">
                     @csrf
@@ -48,12 +53,10 @@
                         <label for="address">Address:</label>
                         <input type="text" name="address" id="address" class="form-control" value="{{ old('address', $user->address) }}">
                     </div>
-
                     <div class="form-group">
                         <label for="phone">Phone Number:</label>
                         <input type="text" name="number" id="phone" class="form-control" value="{{ old('phone', $user->phone) }}">
                     </div>
-                    
                     <button type="submit" class="btn btn-primary">Update Profile</button>
                 </form>
             </div>
@@ -65,7 +68,7 @@
             <div class="alert alert-warning">You have no current requests.</div>
         @else
             <div class="table-responsive">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped table-sm">
                     <thead class="thead-light">
                         <tr>
                             <th>Request ID</th>
@@ -77,84 +80,46 @@
                             <th>Message</th>
                             <th>Total Price</th>
                             <th>Request Date</th>
-
-    @foreach($inventoryRequests as $request)
-        <th style="{{ $inventoryRequests->contains(fn($request) => $request->status_id == 4) ? '' : 'display: none;' }}">Start Date</th>
-        <th style="{{ $inventoryRequests->contains(fn($request) => $request->status_id == 4) ? '' : 'display: none;' }}">End Date</th>
-    @endforeach
-
+                            <th class="d-none d-md-table-cell">Start Date</th>
+                            <th class="d-none d-md-table-cell">End Date</th>
                         </tr>
                     </thead>
                     <tbody>
-    @foreach($inventoryRequests as $request)
-        <tr>
-            <td>{{ $request->id }}</td>
-            <td>{{ $request->housing_details }}</td>
-            <td>
-                @if ($request->status_id == 1)
-                    Pending
-                @elseif ($request->status_id == 2)
-                    In Progress
-                @elseif ($request->status_id == 3)
-                    Rejected
-                @elseif ($request->status_id == 4)
-                    Accepted
-                @else
-                    Unknown Status
-                @endif
-            </td>
-            <td>{{ $request->size }}</td>
-            <td>{{ $request->breakable }}</td>
-            <td>{{ $request->delivery_service }}</td>
-            <td>{{ $request->message }}</td>
-            <td>{{ $request->total_price }}</td>
-            <td>{{ $request->created_at->format('d/m/Y') }}</td>
-
-            <td style="{{ $request->status_id == 4 ? '' : 'display: none;' }}">{{ $request->start_date }}</td>
-            <td style="{{ $request->status_id == 4 ? '' : 'display: none;' }}">{{ $request->end_date }}</td>
-
-
-        </tr>
-    @endforeach
+                        @foreach($inventoryRequests as $request)
+                            <tr>
+                                <td>{{ $request->id }}</td>
+                                <td>{{ $request->housing_details }}</td>
+                                <td>
+                                    @if ($request->status_id == 1)
+                                        Pending
+                                    @elseif ($request->status_id == 2)
+                                        In Progress
+                                    @elseif ($request->status_id == 3)
+                                        Rejected
+                                    @elseif ($request->status_id == 4)
+                                        Accepted
+                                    @else
+                                        Unknown Status
+                                    @endif
+                                </td>
+                                <td>{{ $request->size }}</td>
+                                <td>{{ $request->breakable }}</td>
+                                <td>{{ $request->delivery_service }}</td>
+                                <td>{{ $request->message }}</td>
+                                <td>{{ $request->total_price }}</td>
+                                <td>{{ $request->created_at->format('d/m/Y') }}</td>
+                                <td class="d-none d-md-table-cell">{{ $request->start_date }}</td>
+                                <td class="d-none d-md-table-cell">{{ $request->end_date }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         @endif
     </div>
-<x-footer />
-
-<!-- JS هنا -->
-<script src="js/vendor/jquery-1.12.4.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="js/vendor/modernizr-3.5.0.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/isotope.pkgd.min.js"></script>
-<script src="js/ajax-form.js"></script>
-<script src="js/waypoints.min.js"></script>
-<script src="js/jquery.counterup.min.js"></script>
-<script src="js/imagesloaded.pkgd.min.js"></script>
-<script src="js/scrollIt.js"></script>
-<script src="js/jquery.scrollUp.min.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/nice-select.min.js"></script>
-<script src="js/jquery.slicknav.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="js/slick.min.js"></script>
-
-<!-- Contact js -->
-<script src="js/contact.js"></script>
-<script src="js/jquery.ajaxchimp.min.js"></script>
-<script src="js/jquery.form.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/mail-script.js"></script>
-
-<script src="js/main.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
     <x-footer />
 </body>

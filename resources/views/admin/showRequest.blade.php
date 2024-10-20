@@ -34,10 +34,6 @@
             color: white;
         }
 
-
-
-
-
         th, td {
             padding: 12px;
             border: 1px solid #ddd;
@@ -49,8 +45,6 @@
         th {
             color: #ffffff;
         }
-
-
 
         tr:nth-child(even) {
             background-color: #191C24;
@@ -87,13 +81,9 @@
         .custom-button {
             margin-bottom: 5px;
         }
-
-
-
     </style>
 </head>
 <body>
-    
 
     @include('layout.dash')
 
@@ -103,7 +93,7 @@
             @if($inventoryRequests->isEmpty())
                 <div class="alert alert-warning text-center">You have no current requests.</div>
             @else
-            <table class="table table-bordered ">
+            <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th>Request ID</th>
@@ -130,8 +120,10 @@
                 <span class="badge badge-success">Pending</span>
             @elseif($inventoryRequest->status_id == 2)
                 <span class="badge badge-info">In Progress</span>
+            @elseif($inventoryRequest->status_id == 3)
+                <span class="badge badge-danger">Rejected</span>
             @else
-                <span class="badge badge-danger">Completed</span>
+                <span class="badge badge-success">Accepted</span>
             @endif
         </td>
         <td>{{ $inventoryRequest->size }}</td>
@@ -140,36 +132,48 @@
         <td>{{ $inventoryRequest->message }}</td>
         <td>${{ number_format($inventoryRequest->total_price, 2) }}</td>
         <td>{{ $inventoryRequest->created_at->format('d/m/Y') }}</td>
-<td>
-    <!-- التحقق من حالة الطلب لعرض الأزرار المناسبة -->
-    @if($inventoryRequest->status_id == 1)
-        <!-- أزرار القبول والرفض فقط في حالة الطلب "معلق" -->
-        <form action="{{ route('admin.updateRequest', $inventoryRequest->id) }}" method="POST" class="d-flex flex-column">
-            @csrf
-            @method('PATCH')
-            <input type="hidden" name="size" value="{{ $inventoryRequest->size }}">
-            <input type="hidden" name="location_id" value="{{ $inventoryRequest->location_id }}">
-            <button type="submit" name="action" value="accept" class="btn btn-success btn-sm w-100 custom-button">Accept</button>
-            <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm w-100 custom-button">Reject</button>
-        </form>
-    @elseif($inventoryRequest->status_id == 2)
-        <!-- إذا كان الطلب قيد التنفيذ، يمكن إظهار زر "Reject" لتغييره إلى مرفوض -->
-        <form action="{{ route('admin.updateRequest', $inventoryRequest->id) }}" method="POST" class="d-flex flex-column">
-            @csrf
-            @method('PATCH')
-            <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm w-100 custom-button">Reject</button>
-        </form>
-    @elseif($inventoryRequest->status_id == 3)
-        <!-- إذا كان الطلب مرفوضًا، يمكن إظهار زر "Accept" لتغييره إلى "Pending" أو "In Progress" -->
-        <form action="{{ route('admin.updateRequest', $inventoryRequest->id) }}" method="POST" class="d-flex flex-column">
-            @csrf
-            @method('PATCH')
-            <button type="submit" name="action" value="accept" class="btn btn-success btn-sm w-100 custom-button">Accept</button>
-            <button type="submit" name="action" value="pending" class="btn btn-warning btn-sm w-100 custom-button">Set to Pending</button>
-        </form>
-        <span class="badge badge-danger">Rejected</span>
-    @endif
-</td>
+        <td>
+            <!-- التحقق من حالة الطلب لعرض الأزرار المناسبة -->
+            @if($inventoryRequest->status_id == 1)
+                <!-- أزرار القبول والرفض فقط في حالة الطلب "معلق" -->
+                <form action="{{ route('admin.updateRequest', $inventoryRequest->id) }}" method="POST" class="d-flex flex-column">
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" name="size" value="{{ $inventoryRequest->size }}">
+                    <input type="hidden" name="location_id" value="{{ $inventoryRequest->location_id }}">
+                    <button type="submit" name="action" value="accept" class="btn btn-success btn-sm w-100 custom-button">Accept</button>
+                    <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm w-100 custom-button">Reject</button>
+                </form>
+            @elseif($inventoryRequest->status_id == 2)
+                <!-- إذا كان الطلب قيد التنفيذ، يمكن إظهار زر "مرفوض" -->
+                <form action="{{ route('admin.updateRequest', $inventoryRequest->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" name="size" value="{{ $inventoryRequest->size }}">
+                    <input type="hidden" name="location_id" value="{{ $inventoryRequest->location_id }}">
+                    <button type="submit" name="action" value="reject" class="btn btn-danger btn-sm">Reject</button>
+                </form>
+            @elseif($inventoryRequest->status_id == 3)
+                <!-- إذا كان الطلب مرفوضًا، يمكن إظهار زر "قبول" -->
+                <form action="{{ route('admin.updateRequest', $inventoryRequest->id) }}" method="POST" class="d-flex flex-column">
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" name="size" value="{{ $inventoryRequest->size }}">
+                    <input type="hidden" name="location_id" value="{{ $inventoryRequest->location_id }}">
+                    <button type="submit" name="action" value="accept" class="btn btn-success btn-sm w-100 custom-button">Accept</button>
+                    <button type="submit" name="action" value="pending" class="btn btn-warning btn-sm w-100 custom-button">Set to Pending</button>
+                </form>
+            @else
+                <!-- إذا كان الطلب مقبولًا، يمكن عرض خيار آخر -->
+                <form action="{{ route('admin.updateRequest', $inventoryRequest->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" name="size" value="{{ $inventoryRequest->size }}">
+                    <input type="hidden" name="location_id" value="{{ $inventoryRequest->location_id }}">
+                    <button type="submit" name="action" value="pending" class="btn btn-warning btn-sm">Set to Pending</button>
+                </form>
+            @endif
+        </td>
     </tr>
 @endforeach
                 </tbody>
@@ -178,12 +182,7 @@
         </div>
     </div>
 
-
-
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

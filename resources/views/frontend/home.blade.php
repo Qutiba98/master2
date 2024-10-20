@@ -70,28 +70,27 @@
                             <img src="img/svg_icon/airplane.png" alt="">
                         </div>
                         <h3>Transportation</h3>
-                        <p>Esteem spirit temper too say adieus who direct esteem. It look estee luckily or picture
-                            placing drawing.</p>
+                        <p>You can ship worldwide and handle domestic shipping in the area of your choice.</p>
                     </div>
                 </div>
+
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="single_transport">
                         <div class="icon">
                             <img src="img/svg_icon/live.png" alt="">
                         </div>
-                        <h3>Live Monitoring</h3>
-                        <p>Esteem spirit temper too say adieus who direct esteem. It look estee luckily or picture
-                            placing drawing.</p>
+                        <h3>Direct contact</h3>
+                        <p>Contact us at the number to track your shipment and get all the details.</p>
                     </div>
                 </div>
+                
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="single_transport">
                         <div class="icon">
                             <img src="img/svg_icon/world.png" alt="">
                         </div>
                         <h3>Worldwide Service</h3>
-                        <p>Esteem spirit temper too say adieus who direct esteem. It look estee luckily or picture
-                            placing drawing.</p>
+                        <p>Global service; you can export and ship to any country.</p>
                     </div>
                 </div>
             </div>
@@ -112,7 +111,8 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="service_active owl-carousel">
-                        <div class="single_service">
+                        
+                        {{-- <div class="single_service">
                             <div class="thumb">
                                 <img src="img/service/1.png" alt="">
                             </div>
@@ -120,7 +120,8 @@
                                 <h3><a href="{{ route('service-details') }}">Ocean Freight</a></h3>
                                 <p>Esteem spirit temper too say adieus who direct esteem.</p>
                             </div>
-                        </div>
+                        </div> --}}
+
                         <div class="single_service">
                             <div class="thumb">
                                 <img src="img/service/2.png" alt="">
@@ -139,6 +140,7 @@
                                 <p>Esteem spirit temper too say adieus who direct esteem.</p>
                             </div>
                         </div>
+                        
                         <div class="single_service">
                             <div class="thumb">
                                 <img src="img/service/1.png" alt="">
@@ -147,6 +149,7 @@
                                 <h3><a href="{{ route('service-details') }}">Ocean Freight</a></h3>
                                 <p>Esteem spirit temper too say adieus who direct esteem.</p>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

@@ -183,7 +183,6 @@ public function someFunction()
 
 
 
-
 public function updateRequest(Request $request, $id)
 {
     // التحقق من صحة البيانات
@@ -196,6 +195,7 @@ public function updateRequest(Request $request, $id)
     $inventoryRequest = InventoryRequest::findOrFail($id);
     $updateSpace = Inventory::where('location_id', $request->location_id)->first();
 
+    // إذا كانت الحالة المطلوبة هي قبول الطلب
     if ($request->action == 'accept') {
         // تحويل القيم إلى أرقام
         $space = (int) $updateSpace->space;
@@ -203,33 +203,50 @@ public function updateRequest(Request $request, $id)
 
         // التحقق إذا كانت المساحة المطلوبة أكبر من المساحة المتاحة
         if ($size > $space) {
+            // إذا كانت المساحة المطلوبة أكبر من المتاحة، قم برفض الطلب
             $inventoryRequest->status_id = 3; // رفض الطلب
         } else {
-            $inventoryRequest->status_id = 2; // الطلب "قيد التنفيذ"
-            $updateSpace->space = $space - $size; // طرح الحجم من المساحة المتاحة
+            // إذا تم قبول الطلب
+            $inventoryRequest->status_id = 4; // الطلب مقبول
+            $updateSpace->space -= $size; // طرح الحجم من المساحة المتاحة
             $updateSpace->total_space += $size;
 
             // تعيين تاريخ البداية (اليوم الحالي)
             $inventoryRequest->start_date = Carbon::now();
 
             // تعيين تاريخ النهاية بناءً على مدة التخزين
-            if ($inventoryRequest->storage_duration === '1 month') {
-                $inventoryRequest->end_date = Carbon::now()->addMonth();
-            } elseif ($inventoryRequest->storage_duration === '3 months') {
-                $inventoryRequest->end_date = Carbon::now()->addMonths(3);
-            } elseif ($inventoryRequest->storage_duration === '6 months') {
-                $inventoryRequest->end_date = Carbon::now()->addMonths(6);
-            } elseif ($inventoryRequest->storage_duration === '1 year') {
-                $inventoryRequest->end_date = Carbon::now()->addYear();
-            }
+            $inventoryRequest->end_date = $this->calculateEndDate($inventoryRequest->storage_duration);
 
             // حفظ المساحة المحدثة
             $updateSpace->save();
         }
     } elseif ($request->action == 'reject') {
+        // إذا كان الطلب مقبولًا، يمكنك تعيينه كمرفوض
+        if ($inventoryRequest->status_id == 4) {
+            // إعادة المساحة المتاحة
+            $updateSpace->space += (int) $request->size;
+            $updateSpace->save();
+        }
         $inventoryRequest->status_id = 3; // الطلب مرفوض
     } elseif ($request->action == 'pending') {
         $inventoryRequest->status_id = 1; // الطلب "معلق"
+    }
+
+    // إذا كان الطلب مرفوضًا، يمكنك تغييره إلى مقبول
+    if ($request->action == 'accept' && $inventoryRequest->status_id == 3) {
+        // هنا نعيد المساحة المتاحة لأننا سنقبل الطلب مرة أخرى
+        $updateSpace->space -= (int) $request->size; // استعادة المساحة المخصصة
+        $updateSpace->total_space += (int) $request->size;
+
+        // تعيين الحالة إلى مقبول
+        $inventoryRequest->status_id = 4; // الطلب مقبول
+
+        // تعيين تاريخ البداية وتاريخ النهاية كما فعلنا سابقًا
+        $inventoryRequest->start_date = Carbon::now();
+        $inventoryRequest->end_date = $this->calculateEndDate($inventoryRequest->storage_duration);
+
+        // حفظ المساحة المحدثة
+        $updateSpace->save();
     }
 
     // حفظ تحديثات الطلب
@@ -238,6 +255,22 @@ public function updateRequest(Request $request, $id)
     return redirect()->route('admin.showRequest')->with('success', 'Request updated successfully.');
 }
 
+// دالة لحساب تاريخ النهاية بناءً على مدة التخزين
+private function calculateEndDate($storageDuration)
+{
+    switch ($storageDuration) {
+        case '1 month':
+            return Carbon::now()->addMonth();
+        case '3 months':
+            return Carbon::now()->addMonths(3);
+        case '6 months':
+            return Carbon::now()->addMonths(6);
+        case '1 year':
+            return Carbon::now()->addYear();
+        default:
+            return null;
+    }
+}
 
 
 

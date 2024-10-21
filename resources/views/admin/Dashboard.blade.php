@@ -134,20 +134,21 @@
                                                     badge-success
                                                 @elseif($request->status_id == 3)
                                                     badge-danger
+                                                @elseif($request->status_id == 4)
+                                                    badge-success
                                                 @endif
-                                            ">
+                                                                                     ">
                                                 @switch($request->status_id)
                                                     @case(1)
                                                         Pending
                                                         @break
-                                                    @case(2)
-                                                        Accepted
-                                                        @break
                                                     @case(3)
                                                         Rejected
                                                         @break
+                                                    @case(4)
+                                                        Accepted
                                                     @default
-                                                        Unknown
+                                                    
                                                 @endswitch
                                             </label>
                                         </td>

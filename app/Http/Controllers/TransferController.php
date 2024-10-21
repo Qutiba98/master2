@@ -3,113 +3,194 @@
 namespace App\Http\Controllers;
 
 use App\Models\PackageType;
+use App\Models\PackagePricing;
 use Illuminate\Http\Request;
-use App\Models\PackagePricing; 
+
 class TransferController extends Controller
 {
-    // Method to display the form for creating and viewing transfers
+    public function index()
+    {
+        // استرجاع جميع أنواع النقل
+        $transfers = PackageType::with('pricing')->get();
+        return view('admin.transfers.index', compact('transfers'));
+    }
+
     public function create()
     {
-        $packageTypes = PackageType::with("packagePricing")->get() ;
-        
-        // Retrieve all transfer types
-        return view('admin.transfer.create_transfer', compact('packageTypes'));
-    }
+        // عرض نموذج إضافة نوع نقل جديد
+return view('admin.transfer.create_transfer');    }
 
-    // Method to store a new transfer type
-public function store(Request $request)
-{
-    // التحقق من القيم المدخلة
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'dimensions' => 'required|string|max:255',
-        'price' => 'required|numeric',
-        'duration' => 'required|string|max:255',
-        'space_dimensions' => 'required|string|max:255',
-        'max_items' => 'required|integer',
-        'surveillance' => 'required|string|in:yes,no', // قبول "yes" أو "no"
-        'rental_duration' => 'required|string|max:255',
-        'delivery_service' => 'required|string|in:yes,no',
-
-    ]);
-
-
-    // إنشاء نوع الحزمة
-    $packageType = PackageType::create([
-        'name' => $validatedData['name'],
-        'dimensions' => $validatedData['dimensions'],
-    ]);
-
-    // إنشاء تسعير الحزمة مع القيم المحققة
-    PackagePricing::create([
-        'package_type_id' => $packageType->id,
-        'price' => $validatedData['price'],
-        'duration' => $validatedData['duration'],
-        'space_dimensions' => $validatedData['space_dimensions'],
-        'max_items' => $validatedData['max_items'],
-        'surveillance' => $validatedData['surveillance'], 
-        'rental_duration' => $validatedData['rental_duration'], 
-        'delivery_service' => $validatedData['delivery_service'], 
-
-    ]);
-
-    // إعادة توجيه أو رد بعد نجاح الحفظ
-    return redirect()->back()->with('success', 'Package pricing saved successfully.');
-}
-
-    // Method to delete a transfer type
-    public function destroy($id)
+    public function store(Request $request)
     {
-        $packageType = PackageType::findOrFail($id);
-        $packageType->delete();
+        // التحقق من صحة البيانات
+        $validatedData = $request->validate([
+            'name' => 'required|in:Sea,Air,Land',
+            'dimensions' => 'required|in:By Ship,By Air,By Truck',
+            'price_1_month' => 'required|numeric',
+            'space_dimensions_1_month' => 'required|string',
+            'max_items_1_month' => 'required|integer',
+            'surveillance_1_month' => 'required|in:yes,no',
+            'rental_duration_1_month' => 'required|string',
+            'delivery_service_1_month' => 'required|in:yes,no',
+            'usage_rules_1_month' => 'required|string',
+            'price_6_month' => 'required|numeric',
+            'space_dimensions_6_month' => 'required|string',
+            'max_items_6_month' => 'required|integer',
+            'surveillance_6_month' => 'required|in:yes,no',
+            'rental_duration_6_month' => 'required|string',
+            'delivery_service_6_month' => 'required|in:yes,no',
+            'usage_rules_6_month' => 'required|string',
+            'price_1_year' => 'required|numeric',
+            'space_dimensions_1_year' => 'required|string',
+            'max_items_1_year' => 'required|integer',
+            'surveillance_1_year' => 'required|in:yes,no',
+            'rental_duration_1_year' => 'required|string',
+            'delivery_service_1_year' => 'required|in:yes,no',
+            'usage_rules_1_year' => 'required|string',
+        ]);
 
-        return redirect()->back()->with('success', 'Transfer type deleted successfully!');
+        // إنشاء نوع الحزمة
+        $packageType = PackageType::create([
+            'name' => $validatedData['name'],
+            'dimensions' => $validatedData['dimensions'],
+        ]);
+
+        // إنشاء الأسعار لكل فترة
+        $this->createPackagePricing($packageType->id, $validatedData);
+
+    return redirect()->back()->with('success', 'Transfer type updated successfully.');
     }
 
-    // Method to show the edit form for a specific transfer type
+    protected function createPackagePricing($packageTypeId, $validatedData)
+    {
+        // إنشاء الأسعار لكل فترة
+        PackagePricing::create([
+            'package_type_id' => $packageTypeId,
+            'price' => $validatedData['price_1_month'],
+            'duration' => 'month_1',
+            'space_dimensions' => $validatedData['space_dimensions_1_month'],
+            'max_items' => $validatedData['max_items_1_month'],
+            'surveillance' => $validatedData['surveillance_1_month'],
+            'rental_duration' => $validatedData['rental_duration_1_month'],
+            'delivery_service' => $validatedData['delivery_service_1_month'],
+            'usage_rules' => $validatedData['usage_rules_1_month'],
+        ]);
+
+        PackagePricing::create([
+            'package_type_id' => $packageTypeId,
+            'price' => $validatedData['price_6_month'],
+            'duration' => 'month_6',
+            'space_dimensions' => $validatedData['space_dimensions_6_month'],
+            'max_items' => $validatedData['max_items_6_month'],
+            'surveillance' => $validatedData['surveillance_6_month'],
+            'rental_duration' => $validatedData['rental_duration_6_month'],
+            'delivery_service' => $validatedData['delivery_service_6_month'],
+            'usage_rules' => $validatedData['usage_rules_6_month'],
+        ]);
+
+        PackagePricing::create([
+            'package_type_id' => $packageTypeId,
+            'price' => $validatedData['price_1_year'],
+            'duration' => 'year_1',
+            'space_dimensions' => $validatedData['space_dimensions_1_year'],
+            'max_items' => $validatedData['max_items_1_year'],
+            'surveillance' => $validatedData['surveillance_1_year'],
+            'rental_duration' => $validatedData['rental_duration_1_year'],
+            'delivery_service' => $validatedData['delivery_service_1_year'],
+            'usage_rules' => $validatedData['usage_rules_1_year'],
+        ]);
+    }
+
     public function edit($id)
     {
+        // استرجاع نوع النقل وتفاصيله
+        $transfer = PackageType::with('pricing')->findOrFail($id);
+        return view('admin.transfers.edit', compact('transfer'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // التحقق من صحة البيانات
+        $validatedData = $request->validate([
+            'name' => 'required|in:Sea,Air,Land',
+            'dimensions' => 'required|in:By Ship,By Air,By Truck',
+            'price_1_month' => 'required|numeric',
+            'space_dimensions_1_month' => 'required|string',
+            'max_items_1_month' => 'required|integer',
+            'surveillance_1_month' => 'required|in:yes,no',
+            'rental_duration_1_month' => 'required|string',
+            'delivery_service_1_month' => 'required|in:yes,no',
+            'usage_rules_1_month' => 'required|string',
+            'price_6_month' => 'required|numeric',
+            'space_dimensions_6_month' => 'required|string',
+            'max_items_6_month' => 'required|integer',
+            'surveillance_6_month' => 'required|in:yes,no',
+            'rental_duration_6_month' => 'required|string',
+            'delivery_service_6_month' => 'required|in:yes,no',
+            'usage_rules_6_month' => 'required|string',
+            'price_1_year' => 'required|numeric',
+            'space_dimensions_1_year' => 'required|string',
+            'max_items_1_year' => 'required|integer',
+            'surveillance_1_year' => 'required|in:yes,no',
+            'rental_duration_1_year' => 'required|string',
+            'delivery_service_1_year' => 'required|in:yes,no',
+            'usage_rules_1_year' => 'required|string',
+        ]);
+
+        // تحديث نوع الحزمة
         $packageType = PackageType::findOrFail($id);
-        return view('admin.transfer.edit_transfer', compact('packageType'));
+        $packageType->update([
+            'name' => $validatedData['name'],
+            'dimensions' => $validatedData['dimensions'],
+        ]);
+
+        // تحديث الأسعار لكل فترة
+        $this->updatePackagePricing($packageType->id, $validatedData);
+
+        return redirect()->route('admin.transfers.index')->with('success', 'Transfer type updated successfully.');
     }
 
-    // Method to update a transfer type
-   public function update(Request $request, $id)
-{
-    $packageType = PackageType::findOrFail($id);
+    protected function updatePackagePricing($packageTypeId, $validatedData)
+    {
+        // تحديث الأسعار
+        PackagePricing::where('package_type_id', $packageTypeId)->where('duration', 'month_1')->update([
+            'price' => $validatedData['price_1_month'],
+            'space_dimensions' => $validatedData['space_dimensions_1_month'],
+            'max_items' => $validatedData['max_items_1_month'],
+            'surveillance' => $validatedData['surveillance_1_month'],
+            'rental_duration' => $validatedData['rental_duration_1_month'],
+            'delivery_service' => $validatedData['delivery_service_1_month'],
+            'usage_rules' => $validatedData['usage_rules_1_month'],
+        ]);
 
-    // Validate the incoming request data
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'dimensions' => 'required|string|max:255',
-        'price' => 'required|numeric',
-        'duration' => 'required|string|max:255',
-        'space_dimensions' => 'required|string|max:255',
-        'max_items' => 'required|integer',
-        'surveillance' => 'required|string|in:yes,no', // قبول "yes" أو "no"
-        'rental_duration' => 'required|string|max:255',
-        'delivery_service' => 'required|string|in:yes,no',
-    ]);
+        PackagePricing::where('package_type_id', $packageTypeId)->where('duration', 'month_6')->update([
+            'price' => $validatedData['price_6_month'],
+            'space_dimensions' => $validatedData['space_dimensions_6_month'],
+            'max_items' => $validatedData['max_items_6_month'],
+            'surveillance' => $validatedData['surveillance_6_month'],
+            'rental_duration' => $validatedData['rental_duration_6_month'],
+            'delivery_service' => $validatedData['delivery_service_6_month'],
+            'usage_rules' => $validatedData['usage_rules_6_month'],
+        ]);
 
-    // Update the package type
-    $packageType->name = $request->input('name');
-    $packageType->dimensions = $request->input('dimensions');
-    $packageType->save(); // احفظ التحديثات لنموذج PackageType
-
-    // تحديث التسعير
-    $packagePricing = PackagePricing::where('package_type_id', $packageType->id)->first();
-    if ($packagePricing) {
-        $packagePricing->price = $request->input('price');
-        $packagePricing->duration = $request->input('duration');
-        $packagePricing->space_dimensions = $request->input('space_dimensions');
-        $packagePricing->max_items = $request->input('max_items');
-        $packagePricing->surveillance = $request->input('surveillance') === 'yes' ? 'yes' : 'no'; // تخزين "yes" أو "no"
-        $packagePricing->rental_duration = $request->input('rental_duration');
-        $packagePricing->delivery_service = $request->input('delivery_service') === 'yes' ? 'yes' : 'no'; // تخزين "yes" أو "no"
-        $packagePricing->save(); // احفظ التحديثات لنموذج PackagePricing
+        PackagePricing::where('package_type_id', $packageTypeId)->where('duration', 'year_1')->update([
+            'price' => $validatedData['price_1_year'],
+            'space_dimensions' => $validatedData['space_dimensions_1_year'],
+            'max_items' => $validatedData['max_items_1_year'],
+            'surveillance' => $validatedData['surveillance_1_year'],
+            'rental_duration' => $validatedData['rental_duration_1_year'],
+            'delivery_service' => $validatedData['delivery_service_1_year'],
+            'usage_rules' => $validatedData['usage_rules_1_year'],
+        ]);
     }
 
-    return redirect()->route('admin.transfers.create')->with('success', 'Transfer type updated successfully!');
-}
+    public function destroy($id)
+    {
+        // حذف نوع النقل
+        $packageType = PackageType::findOrFail($id);
+        $packageType->pricing()->delete(); // حذف الأسعار المرتبطة
+        $packageType->delete(); // حذف نوع النقل
 
+        return redirect()->route('admin.transfers.index')->with('success', 'Transfer type deleted successfully.');
+    }
 }

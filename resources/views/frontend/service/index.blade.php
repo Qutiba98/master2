@@ -186,9 +186,9 @@ body {
         <li>{{ $pricing['month_1']->usage_rules ?? 'Not specified' }} <span>Usage rules</span></li>
         </ul>
       </div>
-      <div class="signup">
-        <a href="#">Choose plan</a>
-      </div>
+<div class="signup">
+    <a href="{{ route('payment.page', ['id' => $pricing['month_1']->id]) }}">Choose plan</a>
+</div>
     </div>
 
     <!-- Month 6 Package -->
@@ -209,9 +209,9 @@ body {
     </ul>
 
       </div>
-      <div class="signup">
-        <a href="#">Choose plan</a>
-      </div>
+<div class="signup">
+    <a href="{{ route('payment.page', ['id' => $pricing['month_6']->id]) }}">Choose plan</a>
+</div>
     </div>
 
     <!-- 1 Year Package -->
@@ -232,9 +232,9 @@ body {
     </ul>
 
       </div>
-      <div class="signup">
-        <a href="#">Choose plan</a>
-      </div>
+<div class="signup">
+    <a href="{{ route('payment.page', ['id' => $pricing['year_1']->id]) }}">Choose plan</a>
+</div>
     </div>
   </div>
 </div>

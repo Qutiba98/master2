@@ -101,6 +101,8 @@ Route::get('/packeg', [ServiceController::class, 'index'])->name('services.index
 Route::get('/service/{id}', [ServiceController::class, 'show'])->name('service.details'); // عرض تفاصيل خدمة محددة
 Route::get('/packages/{id}', [ServiceController::class, 'show'])->name('packages.show'); // عرض تفاصيل نوع حزمة محددة
 
+Route::get('/payment/{id}', [ServiceController::class, 'paymentPage'])->name('payment.page');
+
 
 Route::post('/inventory/request', [InventoryRequestController::class, 'store'])->name('inventory.request');
 

@@ -15,6 +15,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Inventory\InventoryRequestController;
 use App\Http\Controllers\Inventory\updateRequest;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\BookingRequestController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -103,6 +107,15 @@ Route::get('/packages/{id}', [ServiceController::class, 'show'])->name('packages
 
 Route::get('/payment/{id}', [ServiceController::class, 'paymentPage'])->name('payment.page');
 
+Route::post('/booking-requests/store', [BookingRequestController::class, 'store'])->name('booking.requests.store');
+
+
+
+
+
+
+
+
 
 Route::post('/inventory/request', [InventoryRequestController::class, 'store'])->name('inventory.request');
 
@@ -183,8 +196,26 @@ Route::get('/createWearhouse', [AdminController::class, 'createWearhouse'])->nam
 
 Route::post('/storeWearhouse', [AdminController::class, 'InventoryLocation'])->name('storeWearhouse');
 
-});
 
+
+
+
+
+
+
+    Route::get('/booking-requests', [BookingRequestController::class, 'index'])->name('booking.requests.index');
+
+    // مسار قبول طلب الحجز
+    Route::post('/booking-requests/{id}/accept', [BookingRequestController::class, 'accept'])->name('booking.requests.accept');
+
+    // مسار رفض طلب الحجز
+    Route::post('/booking-requests/{id}/reject', [BookingRequestController::class, 'reject'])->name('booking.requests.reject');
+
+
+
+
+
+});
 
 
 

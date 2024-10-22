@@ -99,11 +99,11 @@
 
 
           <li class="nav-item menu-items">
-    <a class="nav-link" href="{{ route('admin.Dashboard') }}">
+    <a class="nav-link" href="{{ route('admin.booking.requests.index') }}">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
               </span>
-              <span class="menu-title">Form Elements</span>
+              <span class="menu-title">Booking Requests</span>
             </a>
           </li>
 

@@ -23,8 +23,15 @@ public function show($id)
 
 public function paymentPage($id)
 {
+    // احصل على تفاصيل الحزمة
     $pricing = PackagePricing::findOrFail($id);
-    return view('frontend.payment.payments', ['duration' => $pricing->duration]);
+
+    // عائدات البيانات
+    return view('frontend.payment.payments', [
+        'pricing' => $pricing,
+        'id' => $pricing->id,          // إضافة id
+        'duration' => $pricing->duration // إضافة duration
+    ]);
 }
 
 

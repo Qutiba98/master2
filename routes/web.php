@@ -36,6 +36,7 @@ Route::get('home', function () {
     return view('frontend.home');
 })->name('home');
 
+
 // صفحات أخرى
 Route::get('/single-blog', function () {
     return view('frontend.single-blog');

@@ -23,6 +23,13 @@
             vertical-align: middle; /* لضبط العمود في المنتصف */
             text-align: center; /* لمحاذاة النص إلى المنتصف */
         }
+
+
+        
+
+
+
+        
     </style>
 </head>
 <body>
@@ -62,60 +69,62 @@
             </div>
         </div>
 
-        <h2>My Requests</h2>
+<h2 class="mb-4">My Requests</h2>
+@if($inventoryRequests->isEmpty())
+    <div class="alert alert-warning">You have no current requests.</div>
+@else
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered table-striped table-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th style="padding: 10px; vertical-align: middle;">Request ID</th>
+                    <th style="padding: 10px; vertical-align: middle;">Housing Details</th>
+                    <th style="padding: 10px; vertical-align: middle;">Status</th>
+                    <th style="padding: 10px; vertical-align: middle;">Size</th>
+                    <th style="padding: 10px; vertical-align: middle;">Breakable</th>
+                    <th style="padding: 10px; vertical-align: middle;">Requested Service</th>
+                    <th style="padding: 10px; vertical-align: middle;">Message</th>
+                    <th style="padding: 10px; vertical-align: middle;">Total Price</th>
+                    <th style="padding: 10px; vertical-align: middle;">Request Date</th>
+                    <th class="d-none d-md-table-cell" style="padding: 10px; vertical-align: middle;">Start Date</th>
+                    <th class="d-none d-md-table-cell" style="padding: 10px; vertical-align: middle;">End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($inventoryRequests as $request)
+                    <tr>
+                        <td style="vertical-align: middle;">{{ $request->id }}</td>
+                        <td style="vertical-align: middle;">{{ $request->housing_details }}</td>
+                        <td style="vertical-align: middle;">
+                            @if ($request->status_id == 1)
+                                <span class="badge badge-warning">Pending</span>
+                            @elseif ($request->status_id == 2)
+                                <span class="badge badge-primary">In Progress</span>
+                            @elseif ($request->status_id == 3)
+                                <span class="badge badge-danger">Rejected</span>
+                            @elseif ($request->status_id == 4)
+                                <span class="badge badge-success">Accepted</span>
+                            @else
+                                <span class="badge badge-secondary">Unknown Status</span>
+                            @endif
+                        </td>
+                        <td style="vertical-align: middle;">{{ $request->size }}</td>
+                        <td style="vertical-align: middle;">{{ $request->breakable }}</td>
+                        <td style="vertical-align: middle;">{{ $request->delivery_service }}</td>
+                        <td style="vertical-align: middle;">{{ $request->message }}</td>
+                        <td style="vertical-align: middle;">{{ $request->total_price }}</td>
+                        <td style="vertical-align: middle;">{{ $request->created_at->format('d/m/Y') }}</td>
+                        <td class="d-none d-md-table-cell" style="vertical-align: middle;">{{ $request->start_date }}</td>
+                        <td class="d-none d-md-table-cell" style="vertical-align: middle;">{{ $request->end_date }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+@endif
 
-        @if($inventoryRequests->isEmpty())
-            <div class="alert alert-warning">You have no current requests.</div>
-        @else
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped table-sm">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Request ID</th>
-                            <th>Housing Details</th>
-                            <th>Status</th>
-                            <th>Size</th>
-                            <th>Breakable</th>
-                            <th>Requested Service</th>
-                            <th>Message</th>
-                            <th>Total Price</th>
-                            <th>Request Date</th>
-                            <th class="d-none d-md-table-cell">Start Date</th>
-                            <th class="d-none d-md-table-cell">End Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($inventoryRequests as $request)
-                            <tr>
-                                <td>{{ $request->id }}</td>
-                                <td>{{ $request->housing_details }}</td>
-                                <td>
-                                    @if ($request->status_id == 1)
-                                        Pending
-                                    @elseif ($request->status_id == 2)
-                                        In Progress
-                                    @elseif ($request->status_id == 3)
-                                        Rejected
-                                    @elseif ($request->status_id == 4)
-                                        Accepted
-                                    @else
-                                        Unknown Status
-                                    @endif
-                                </td>
-                                <td>{{ $request->size }}</td>
-                                <td>{{ $request->breakable }}</td>
-                                <td>{{ $request->delivery_service }}</td>
-                                <td>{{ $request->message }}</td>
-                                <td>{{ $request->total_price }}</td>
-                                <td>{{ $request->created_at->format('d/m/Y') }}</td>
-                                <td class="d-none d-md-table-cell">{{ $request->start_date }}</td>
-                                <td class="d-none d-md-table-cell">{{ $request->end_date }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        @endif
+
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

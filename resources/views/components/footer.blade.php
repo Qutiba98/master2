@@ -1,4 +1,65 @@
-    <!-- footer start -->
+   
+   
+   
+
+
+
+    <!-- testimonial_area  -->
+    <div class="testimonial_area">
+        <div class="container">
+            <div class="row">
+            </div>
+        </div>
+    </div>
+    <!-- /testimonial_area  -->
+
+
+
+
+
+
+
+
+
+
+
+
+   
+       <!-- contact_location  -->
+    <div class="contact_location">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="location_left">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img src="img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-3">
+                    <div class="single_location">
+                        <h3> <img src="img/icon/address.svg" alt=""> Location</h3>
+                        <p>Amman , Jordan</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-3">
+                    <div class="single_location">
+                        <h3> <img src="img/icon/support.svg" alt=""> Location</h3>
+                        <p>+962 779 199 880 <br>
+                            support@logistico.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   
+   
+   
+   <!-- footer start -->
     <footer class="footer">
         <div class="footer_top">
             <div class="container">

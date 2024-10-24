@@ -22,7 +22,20 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+
+<style>
+    body {
+        color: black;
+    }
+    .list-group-item strong {
+        color: black;
+    }
+    h2{
+        color: black
+    }
+</style>
+
+
    <x-navigation />
    <div class="container mt-5">
        <h2 class="text-center mb-4">Your Storage Information</h2>

@@ -127,7 +127,7 @@
                                 <img src="img/service/2.png" alt="">
                             </div>
                             <div class="service_info"> 
-                                <h3><a href="{{ route('service-details') }}">Land Transport</a></h3>
+                                <h3><a href="{{ route('Land_shipping') }}">Land Transport</a></h3>
                                 <p>Esteem spirit temper too say adieus who direct esteem.</p>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                                 <img src="img/service/3.png" alt="">
                             </div>
                             <div class="service_info">
-                                <h3><a href="{{ route('service-details') }}">Air Freight</a></h3>
+                                <h3><a href="{{ route('AirFreight') }}">Air Freight</a></h3>
                                 <p>Esteem spirit temper too say adieus who direct esteem.</p>
                             </div>
                         </div>
@@ -208,6 +208,7 @@
     </div>
     <!--/ chose_area  -->
 
+
     <!-- counter_area  -->
     <div class="counter_area">
         <div class="container">
@@ -215,26 +216,27 @@
                 <div class="row">
                     <div class="col-xl-3 col-md-3">
                         <div class="single_counter text-center">
-                            <h3> <span class="counter">42</span> <span>+</span> </h3>
-                            <p>Countries Covered</p>
+                            <h3> <span class="counter">{{ $usersCount}}</span><span>+</span></h3>
+
+                            <p>Client</p>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-3">
                         <div class="single_counter text-center">
-                            <h3> <span class="counter">97</span> <span>+</span> </h3>
-                            <p>Business Success</p>
+                            <h3> <span class="counter">{{ $inventoryRequests->count() }}</span><span>+</span></h3>
+                            <p>Shipping Bookings</p>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-3">
                         <div class="single_counter text-center">
-                            <h3> <span class="counter">2342</span></h3>
-                            <p>Happy Client</p>
+                            <h3> <span class="counter">{{ $bookingsCount }}</span> <span>+</span> </h3>
+                            <p>Storage Bookings</p>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-3">
                         <div class="single_counter text-center">
-                            <h3> <span class="counter">3245</span></h3>
-                            <p>Business Done</p>
+                            <h3> <span class="counter">{{ $inventoryLocationsCount }}</span><span>+</span></h3>
+                            <p>Warehouses</p>
                         </div>
                     </div>
                 </div>

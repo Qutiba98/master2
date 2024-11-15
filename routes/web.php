@@ -42,6 +42,26 @@ Route::get('/single-blog', function () {
     return view('frontend.single-blog');
 })->name('single-blog');
 
+
+Route::get('/Landshipping', function () {
+    return view('frontend.Land_shipping');
+})->name('Land_shipping');
+
+
+Route::get('/AirFreight', function () {
+    return view('frontend.Air_Freight');
+})->name('AirFreight');
+
+
+use App\Http\Controllers\Home\UserController;
+
+// المسار لصفحة الـ Home
+Route::get('/home', [UserController::class, 'showHome'])->name('home');
+
+
+
+
+
 Route::get('/service', function () {
     return view('frontend.service');
 })->name('service');
@@ -146,7 +166,12 @@ Route::post('/register', [RegisteredUserController::class, 'register'])->name('r
 
 
 
-// صفحات الأدمن، فقط الأدمن والسوبر أدمن يمكنهم الوصول إليها
+
+
+
+
+
+
 Route::middleware(['auth', 'admin:2|3'])->prefix('admin')->name('admin.')->group(function () {
     // الصفحة الرئيسية للمدير
     
@@ -197,13 +222,6 @@ Route::get('/createWearhouse', [AdminController::class, 'createWearhouse'])->nam
 
 Route::post('/storeWearhouse', [AdminController::class, 'InventoryLocation'])->name('storeWearhouse');
 
-
-
-
-
-
-
-
     Route::get('/booking-requests', [BookingRequestController::class, 'index'])->name('booking.requests.index');
 
     // مسار قبول طلب الحجز
@@ -211,8 +229,6 @@ Route::post('/storeWearhouse', [AdminController::class, 'InventoryLocation'])->n
 
     // مسار رفض طلب الحجز
     Route::post('/booking-requests/{id}/reject', [BookingRequestController::class, 'reject'])->name('booking.requests.reject');
-
-
 
 
 

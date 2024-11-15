@@ -1,30 +1,4 @@
-   
-   
-   
 
-
-
-    <!-- testimonial_area  -->
-    <div class="testimonial_area">
-        <div class="container">
-            <div class="row">
-            </div>
-        </div>
-    </div>
-    <!-- /testimonial_area  -->
-
-
-
-
-
-
-
-
-
-
-
-
-   
        <!-- contact_location  -->
     <div class="contact_location">
         <div class="container">

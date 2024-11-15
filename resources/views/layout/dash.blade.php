@@ -54,16 +54,22 @@
                       <i class="mdi mdi-onepassword  text-info"></i>
                     </div>
                   </div>
+                  
                   <div class="preview-item-content">
-                    <p class="preview-subject ellipsis mb-1 text-small">Logout</p>
-                  </div>
+                    @if(auth()->check())
+                    <div style="display: flex; align-items: center; gap: 10px;">
+    
+                        <!-- زر تسجيل الخروج -->
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit" style="background-color: transparent; border: 1px solid #000; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Logout</button>
+                        </form>
+                    </div>
+                @else
+                @endif
+                                  </div>
                 </a>
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
             </div>
-          </li>
-          <li class="nav-item nav-category">
-            <span class="nav-link">Navigation</span>
           </li>
 
 

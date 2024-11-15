@@ -14,6 +14,7 @@ class Booking extends Model
         'package_type_id',
         'duration',
         'price',
-        // أضف أي حقول إضافية تحتاجها
+        'country',
+
     ];
 }

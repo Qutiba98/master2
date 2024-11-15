@@ -5,21 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New User</title>
     <base href="{{ url('/') }}/" target="_self">
-    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            color: white;
             padding: 20px;
         }
 
         h2 {
             text-align: center;
             margin-bottom: 20px;
-            color: white;
         }
 
         .table {
@@ -33,12 +31,11 @@
             padding: 12px;
             border: 1px solid #ddd;
             text-align: center;
-            background: #191C24;
-            color: white;
         }
 
         th {
-            color: #ffffff;
+            background: #343a40;
+            color: white;
         }
 
         tr:nth-child(even) {
@@ -46,77 +43,30 @@
         }
 
         tr:hover {
-            background-color: #ffffff;
-            color: white;
-        }
-
-        .btn-accept {
-            background-color: #28a745; /* Green */
-            color: white;
-        }
-
-        .btn-reject {
-            background-color: #dc3545; /* Red */
-            color: white;
-        }
-
-        .status-accepted {
-            color: #28a745; /* Green */
-            font-weight: bold;
-        }
-
-        .status-rejected {
-            color: #dc3545; /* Red */
-            font-weight: bold;
+            background-color: #6d6868;
         }
 
         .btn {
-            margin-left: 5px;
+            margin: 2px;
         }
 
-        @media (max-width: 576px) {
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .table thead {
-                display: none; /* Hide the header on small screens */
-            }
-
-            .table,
-            .table tbody,
-            .table tr,
-            .table td {
-                display: block; /* Make each row a block */
-                width: 100%; /* Full width */
-            }
-
-            .table td {
-                text-align: right; /* Align text to the right */
-                position: relative; /* Position relative for pseudo-element */
-                padding-left: 50%; /* Leave space for labels */
-            }
-
-            .table td::before {
-                content: attr(data-label); /* Show the label before each value */
-                position: absolute; /* Position it */
-                left: 10px; /* Space from left */
-                width: calc(50% - 20px); /* Adjust width */
-                text-align: left; /* Align to the left */
-                font-weight: bold; /* Bold the label */
-            }
+        .text-success {
+            font-weight: bold;
+        }
+     
+        .text-danger {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-
-@include('layout.dash')
+    @include('layout.dash')
 
 <div class="container mt-5">
-    <h2 class="mb-4">Booking Requests</h2>
+    <h2>Booking Requests</h2>
 
     <table class="table table-bordered">
-        <thead class="thead-dark">
+        <thead>
             <tr>
                 <th>User Name</th>
                 <th>Package Type</th>
@@ -134,24 +84,38 @@
             @else
                 @foreach($requests as $request)
                     <tr>
-                        <td data-label="User Name">{{ $request->user->name }}</td>
-                        <td data-label="Package Type">{{ $request->packageType->name }}</td>
-                        <td data-label="Duration">{{ $request->duration }}</td>
-                        <td data-label="Price">{{ $request->price }}</td>
-                        <td data-label="Status" class="{{ $request->status == 'Accepted' ? 'status-accepted' : ($request->status == 'Rejected' ? 'status-rejected' : '') }}">
-                            {{ $request->status }}
+                        <td>{{ $request->user->name }}</td>
+                        <td>{{ $request->packageType->name }}</td>
+                        <td>{{ $request->duration }}</td>
+                        <td>{{ $request->price }}</td>
+                        <td class="{{ $request->status == 'accepted' ? 'text-success' : ($request->status == 'rejected' ? 'text-danger' : '') }}">
+                            {{ ucfirst($request->status) }}
                         </td>
-                        <td data-label="Actions">
-                            <form action="{{ route('admin.booking.requests.accept', $request->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                <button type="submit" class="btn btn-success">Accept</button>
-                            </form>
-                            <form action="{{ route('admin.booking.requests.reject', $request->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Reject</button>
-                            </form>
+                        <td>
+                            @if ($request->status === 'pending')
+                                <form action="{{ route('admin.booking.requests.accept', $request->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">Accept</button>
+                                </form>
+                                <form action="{{ route('admin.booking.requests.reject', $request->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Reject</button>
+                                </form>
+                            @elseif ($request->status === 'accepted')
+                                <span class="text-success">Accepted</span>
+                                <form action="{{ route('admin.booking.requests.reject', $request->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Reject</button>
+                                </form>
+                            @elseif ($request->status === 'rejected')
+                                <span class="text-danger">Rejected</span>
+                                <form action="{{ route('admin.booking.requests.accept', $request->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">Accept</button>
+                                </form>
+                            @endif
                         </td>
-                    </tr>
+                    </tr> 
                 @endforeach
             @endif
         </tbody>

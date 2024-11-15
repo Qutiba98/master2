@@ -22,22 +22,80 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/gijgo.css">
     <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/slick.css">
     <link rel="stylesheet" href="css/slicknav.css">
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
-
     <link rel="stylesheet" href="css/style.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
 
-<body>
-    <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
+<style>
+.bradcam_area::before {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-size: cover !important;
+    background-position: center !important;
+    z-index: -1 !important;
+    content: '' !important;
+    opacity: .5 !important;
+} 
+.custom-list {
+    list-style-type: disc; /* تعيين النقاط الافتراضية */
+    margin-left: 20px; /* إضافة مسافة من اليسار */
+}
+.custom-list li {
+    font-size: 16px; /* تغيير حجم الخط */
+    color: #333; /* تغيير لون النص */
+}
+.custom-list li::before {
+    content: '\2022'; /* النقطة */
+    color: black; /* لون النقطة */
+    font-size: 20px; /* حجم النقطة */
+    margin-right: 10px; /* المسافة بين النقطة والنص */
+}
+.land_service_gallery {
+    display: flex; /* لعرض العناصر بجانب بعضها */
+    gap: 10px; /* مسافة بين الصور */
+    justify-content: center; /* محاذاة الصور في المنتصف */
+}
+.land_service_gallery .service_thumb {
+    flex: 1; /* لجعل العناصر تأخذ نفس المساحة النسبية */
+    max-width: 30%; /* يعين العرض النسبي لكل صورة */
+    height: 200px; /* يضبط نفس الطول لجميع الصور */
+}
+.land_service_gallery .service_thumb img {
+    width: 100%; /* يجعل الصورة تملأ العرض */
+    height: 100%; /* يجعل الصورة تملأ الطول */
+    object-fit: cover; /* لضبط الصورة داخل الإطار بدون تشويه */
+    border: 1px solid #ddd; /* إطار بسيط حول الصور */
+}
+.specific_service_gallery {
+    display: flex; /* لجعل العناصر بجانب بعضها */
+    gap: 10px; /* مسافة بين الصور */
+    justify-content: center; /* محاذاة الصور في المنتصف */
+}
+.specific_service_gallery .service_thumb {
+    flex: 1; /* يجعل كل العناصر تأخذ مساحة متساوية */
+    max-width: 30%; /* يعين العرض النسبي */
+    height: 200px; /* الطول الموحد */
+}
+.specific_service_gallery .service_thumb img {
+    width: 100%; /* لملء عرض العنصر بالكامل */
+    height: 100%; /* لملء الطول بالكامل */
+    object-fit: cover; /* لضبط الصورة داخل العنصر دون تشويه */
+    border: 1px solid #ddd; /* إطار خفيف حول الصور */
+}
+</style>
 
-    <x-navigation />
+<body>
+
     
     <!-- bradcam_area  -->
+
+
+    <x-navigation />
+
     <div class="bradcam_area bradcam_area2  bradcam_bg_2">
         <div class="container">
             <div class="row">
@@ -69,398 +127,92 @@
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="col-lg-8 col-md-8">
                             <div class="tab-content" id="v-pills-tabContent">
                                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                                     aria-labelledby="v-pills-home-tab">
                                     <div class="service_details_info">
-                                        <h3>Service details</h3>
-                                        <p>Esteem spirit temper too say adieus who direct esteem. It esteems luckily or
-                                            picture
-                                            placing drawing. Apartments frequently or motionless on reasonable sed do
-                                            eiusmod tempor
-                                            inciunt ut labore et dolore magna liqua.abore et dolore incididunt ut labore et
-                                            dolore.
-                                        </p>
-                                        <p>Temper too say adieus who direct esteem. It esteems luckily or picture placing
-                                            drawing.
-                                            Apartments frequently or motionless on reasonable sed do eiusmod tempor inciunt
-                                            ut
-                                            labore et dolore magna liqua.abore et dolore incididunt ut labore et dolore.</p>
-                                        <p>Adieus who direct esteem. It esteems luckily or picture placing drawing.
-                                            Apartments
-                                            frequently or motionless on reasonable sed do eiusmod tempor inciunt ut labore
-                                            et dolore
-                                            magna liqua.abore et dolore incididunt ut labore et dolore.</p>
+
+                                        <h3>Ocean Freight   </h3>
+                                        <p>With our broad product range we cover different equipment types and consolidation services 
+                                            to ensure your cargo reaches the right place, at the right time in a cost-efficient way. 
+                                            In order to deliver highest reliability we have planned space protection from every major
+                                             container port in the world.</p>
+
+                                                                                
+
+
                                     </div>
-                                    <div class="service_thumb">
-                                        <img class="img-fluid" src="img/service/service_details.png" alt="">
-                                    </div>
-                                    <div class="accordion_area">
-                                        <div class="faq_ask">
-                                            <h3>Frequently ask</h3>
-                                            <div id="accordion">
-                                                <div class="card">
-                                                    <div class="card-header" id="headingTwo">
-                                                        <h5 class="mb-0">
-                                                            <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                                data-target="#collapseTwo" aria-expanded="false"
-                                                                aria-controls="collapseTwo">
-                                                                Adieus who direct esteem <span>It esteems
-                                                                    luckily?</span>
-                                                            </button>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                                                        data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who
-                                                            direct esteem esteems luckily or picture placing drawing.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-header" id="headingOne">
-                                                        <h5 class="mb-0">
-                                                            <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                                data-target="#collapseOne" aria-expanded="false"
-                                                                aria-controls="collapseOne">
-                                                                Who direct esteem It esteems?
-                                                            </button>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                                                        data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who
-                                                            direct esteem esteems luckily or picture placing drawing.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-header" id="headingThree">
-                                                        <h5 class="mb-0">
-                                                            <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                                data-target="#collapseThree" aria-expanded="false"
-                                                                aria-controls="collapseThree">
-                                                                Duis consectetur feugiat auctor?
-                                                            </button>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                                                        data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who
-                                                            direct esteem esteems luckily or picture placing drawing.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+
+
+                                    <div class="specific_service_gallery">
+                                        <div class="service_thumb">
+                                            <img class="img-fluid" src="img/service/service_details.png" alt="">
+                                        </div>
+                                        <div class="service_thumb">
+                                            <img class="img-fluid" src="img/service/s22.jpg" alt="">
+                                        </div>
+                                        <div class="service_thumb">
+                                            <img class="img-fluid" src="img/service/s11.jpg" alt="">
                                         </div>
                                     </div>
-                                    <div class="download_brochure d-flex align-items-center justify-content-between">
-                                        <div class="download_left d-flex align-items-center">
-                                            <div class="icon">
-                                                <img src="img/svg_icon/download.svg" alt="">
-                                            </div>
-                                            <div class="download_text">
-                                                <h3>Download Our Brochure</h3>
-                                                <p>Esteem spirit temper too say adieus who direct.</p>
-                                            </div>
-                                        </div>
-                                        <div class="download_right">
-                                            <a class="boxed-btn3-line" href="#">Download Now</a>
-                                        </div>
-                                    </div>
+
                                 </div>
+
+
                                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
                                     aria-labelledby="v-pills-profile-tab">
                                     <div class="service_details_info">
-                                        <h3>Service details</h3>
-                                        <p>Esteem spirit temper too say adieus who direct esteem. It esteems luckily or
-                                            picture
-                                            placing drawing. Apartments frequently or motionless on reasonable sed do
-                                            eiusmod tempor
-                                            inciunt ut labore et dolore magna liqua.abore et dolore incididunt ut labore et
-                                            dolore.
-                                        </p>
-                                        <p>Temper too say adieus who direct esteem. It esteems luckily or picture placing
-                                            drawing.
-                                            Apartments frequently or motionless on reasonable sed do eiusmod tempor inciunt
-                                            ut
-                                            labore et dolore magna liqua.abore et dolore incididunt ut labore et dolore.</p>
-                                        <p>Adieus who direct esteem. It esteems luckily or picture placing drawing.
-                                            Apartments
-                                            frequently or motionless on reasonable sed do eiusmod tempor inciunt ut labore
-                                            et dolore
-                                            magna liqua.abore et dolore incididunt ut labore et dolore.</p>
-                                    </div>
-                                    <div class="service_thumb">
-                                        <img class="img-fluid" src="img/service/service_details.png" alt="">
-                                    </div>
-                                    <div class="accordion_area">
-                                        <div class="faq_ask">
-                                            <h3>Frequently ask</h3>
-                                            <div id="accordion">
-                                                <div class="card">
-                                                    <div class="card-header" id="headingTwo1">
-                                                        <h5 class="mb-0">
-                                                            <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                                data-target="#collapseTwo1" aria-expanded="false"
-                                                                aria-controls="collapseTwo">
-                                                                Adieus who direct esteem <span>It esteems
-                                                                    luckily?</span>
-                                                            </button>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo1"
-                                                        data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who
-                                                            direct esteem esteems luckily or picture placing drawing.
-                                                        </div>
-                                                    </div>
+
+
+                                             <h3>Land Transport
+                                            </h3>
+                                            <p>We provide smart logistics services which are tailor-made to your needs. At AHES you’ll find a variety of advanced services which include:
+    
+    
+                                            </p>
+    
+    
+                                            <ul class="custom-list">
+                                                <li class="list-item">Storage in containers</li>
+                                                <li class="list-item">Overland storage space</li>
+                                                <li class="list-item">Domestic transportation</li>
+                                                <li class="list-item">Disassembling plants</li>
+                                                <li class="list-item">Packing and unloading services</li>
+                                                <li class="list-item">Containers for different purposes</li>
+                                            </ul>
+                                                                                    
+    
+
+
+                                            <div class="land_service_gallery">
+                                                <div class="service_thumb">
+                                                    <img class="img-fluid" src="img/service/land1.jpg" alt="">
                                                 </div>
-                                                <div class="card">
-                                                    <div class="card-header" id="headingOne2">
-                                                        <h5 class="mb-0">
-                                                            <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                                data-target="#collapseOne2" aria-expanded="false"
-                                                                aria-controls="collapseOne">
-                                                                Who direct esteem It esteems?
-                                                            </button>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseOne2" class="collapse" aria-labelledby="headingOne2"
-                                                        data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who
-                                                            direct esteem esteems luckily or picture placing drawing.
-                                                        </div>
-                                                    </div>
+                                                <div class="service_thumb">
+                                                    <img class="img-fluid" src="img/service/land11.jpg" alt="">
                                                 </div>
-                                                <div class="card">
-                                                    <div class="card-header" id="headingThree3">
-                                                        <h5 class="mb-0">
-                                                            <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                                data-target="#collapseThree3" aria-expanded="false"
-                                                                aria-controls="collapseThree">
-                                                                Duis consectetur feugiat auctor?
-                                                            </button>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseThree3" class="collapse" aria-labelledby="headingThree3"
-                                                        data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who
-                                                            direct esteem esteems luckily or picture placing drawing.
-                                                        </div>
-                                                    </div>
+                                                <div class="service_thumb">
+                                                    <img class="img-fluid" src="img/service/land22.jpg" alt="">
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="download_brochure d-flex align-items-center justify-content-between">
-                                        <div class="download_left d-flex align-items-center">
-                                            <div class="icon">
-                                                <img src="img/svg_icon/download.svg" alt="">
-                                            </div>
-                                            <div class="download_text">
-                                                <h3>Download Our Brochure</h3>
-                                                <p>Esteem spirit temper too say adieus who direct.</p>
-                                            </div>
-                                        </div>
-                                        <div class="download_right">
-                                            <a class="boxed-btn3-line" href="#">Download Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
-                                    aria-labelledby="v-pills-messages-tab">
-                                    <div class="service_details_info">
-                                        <h3>Service details</h3>
-                                        <p>Esteem spirit temper too say adieus who direct esteem. It esteems luckily or
-                                            picture
-                                            placing drawing. Apartments frequently or motionless on reasonable sed do
-                                            eiusmod tempor
-                                            inciunt ut labore et dolore magna liqua.abore et dolore incididunt ut labore et
-                                            dolore.
-                                        </p>
-                                        <p>Temper too say adieus who direct esteem. It esteems luckily or picture placing
-                                            drawing.
-                                            Apartments frequently or motionless on reasonable sed do eiusmod tempor inciunt
-                                            ut
-                                            labore et dolore magna liqua.abore et dolore incididunt ut labore et dolore.</p>
-                                        <p>Adieus who direct esteem. It esteems luckily or picture placing drawing.
-                                            Apartments
-                                            frequently or motionless on reasonable sed do eiusmod tempor inciunt ut labore
-                                            et dolore
-                                            magna liqua.abore et dolore incididunt ut labore et dolore.</p>
-                                    </div>
-                                    <div class="service_thumb">
-                                        <img class="img-fluid" src="img/service/service_details.png" alt="">
-                                    </div>
-                                    <div class="accordion_area">
-                                        <div class="faq_ask">
-                                            <h3>Frequently ask</h3>
-                                            <div id="accordion">
-                                                <div class="card">
-                                                    <div class="card-header" id="headingTwoa">
-                                                        <h5 class="mb-0">
-                                                            <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                                data-target="#collapseTwoa" aria-expanded="false"
-                                                                aria-controls="collapseTwo">
-                                                                Adieus who direct esteem <span>It esteems
-                                                                    luckily?</span>
-                                                            </button>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseTwoa" class="collapse" aria-labelledby="headingTwoa"
-                                                        data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who
-                                                            direct esteem esteems luckily or picture placing drawing.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-header" id="headingOne">
-                                                        <h5 class="mb-0">
-                                                            <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                                data-target="#collapseOneb" aria-expanded="false"
-                                                                aria-controls="collapseOneb">
-                                                                Who direct esteem It esteems?
-                                                            </button>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseOneb" class="collapse" aria-labelledby="headingOneb"
-                                                        data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who
-                                                            direct esteem esteems luckily or picture placing drawing.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-header" id="headingThree">
-                                                        <h5 class="mb-0">
-                                                            <button class="btn btn-link collapsed" data-toggle="collapse"
-                                                                data-target="#collapseThreev" aria-expanded="false"
-                                                                aria-controls="collapseThree">
-                                                                Duis consectetur feugiat auctor?
-                                                            </button>
-                                                        </h5>
-                                                    </div>
-                                                    <div id="collapseThreev" class="collapse" aria-labelledby="headingThreev"
-                                                        data-parent="#accordion" style="">
-                                                        <div class="card-body">Esteem spirit temper too say adieus who
-                                                            direct esteem esteems luckily or picture placing drawing.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="download_brochure d-flex align-items-center justify-content-between">
-                                        <div class="download_left d-flex align-items-center">
-                                            <div class="icon">
-                                                <img src="img/svg_icon/download.svg" alt="">
-                                            </div>
-                                            <div class="download_text">
-                                                <h3>Download Our Brochure</h3>
-                                                <p>Esteem spirit temper too say adieus who direct.</p>
-                                            </div>
-                                        </div>
-                                        <div class="download_right">
-                                            <a class="boxed-btn3-line" href="#">Download Now</a>
-                                        </div>
-                                    </div>
+        
+
+
                                 </div>
                             </div>
+
                         </div>
             </div>
         </div>
     </div>
     <!-- service_details_start  -->
 
-    <!-- Estimate_area start  -->
-    <div class="Estimate_area overlay">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-4 col-lg-4 col-md-5">
-                    <div class="Estimate_info">
-                        <h3>Get free Estimate</h3>
-                        <p>Esteem spirit temper too say adieus who direct esteem. It look estee luckily or picture
-                            placing.</p>
-                        <a href="#" class="boxed-btn3">+10 672 457 356</a>
-                    </div>
-                </div>
-                <div class="col-xl-8 col-lg-8 col-md-7">
-                    <div class="form">
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-xl-6">
-                                    <div class="input_field">
-                                        <input type="text" placeholder="Your name">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="input_field">
-                                        <input type="email" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="input_field">
-                                        <select class="wide">
-                                            <option data-display="Product type">Product type</option>
-                                            <option value="1">small</option>
-                                            <option value="2">standard</option>
-                                            <option value="3">high</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="input_field">
-                                        <select class="wide">
-                                            <option data-display="Product size">Product size</option>
-                                            <option value="1">M</option>
-                                            <option value="2">L</option>
-                                            <option value="3">Xl</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="input_field">
-                                        <select class="wide">
-                                            <option data-display="City of departure">City of departure</option>
-                                            <option value="1">departure</option>
-                                            <option value="2">departure</option>
-                                            <option value="3">departure</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6">
-                                    <div class="input_field">
-                                        <select class="wide">
-                                            <option data-display="Delivery city">City of departure</option>
-                                            <option value="1">Delivery</option>
-                                            <option value="2">Delivery</option>
-                                            <option value="3">Delivery</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="input_field">
-                                        <textarea placeholder="Message"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="input_field">
-                                        <button class="boxed-btn3-line" type="submit">Send Estimate</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Estimate_area end  -->
+   <br>
 
-    <!-- contact_location  -->
+       <!-- contact_location  -->
     <div class="contact_location">
         <div class="container">
             <div class="row">
@@ -471,25 +223,18 @@
                                 <img src="img/logo.png" alt="">
                             </a>
                         </div>
-                        <ul>
-                            <li><a href="#"> <i class="fa fa-facebook"></i> </a></li>
-                            <li><a href="#"> <i class="fa fa-google-plus"></i> </a></li>
-                            <li><a href="#"> <i class="fa fa-twitter"></i> </a></li>
-                            <li><a href="#"> <i class="fa fa-youtube"></i> </a></li>
-                        </ul>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-3">
                     <div class="single_location">
                         <h3> <img src="img/icon/address.svg" alt=""> Location</h3>
-                        <p>600/D, Kings road, Green lane
-                            NewYork-2563</p>
+                        <p>Amman , Jordan</p>
                     </div>
                 </div>
                 <div class="col-xl-3 col-md-3">
                     <div class="single_location">
                         <h3> <img src="img/icon/support.svg" alt=""> Location</h3>
-                        <p>+10 267 3563 4562 <br>
+                        <p>+962 779 199 880 <br>
                             support@logistico.com</p>
                     </div>
                 </div>
@@ -497,10 +242,9 @@
         </div>
     </div>
 
-    <!--/ contact_location  -->
 
 
-    <!-- footer start -->
+   <!-- footer start -->
     <footer class="footer">
         <div class="footer_top">
             <div class="container">
@@ -580,17 +324,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     </footer>
     <!--/ footer end  -->
 
-  <!-- Modal -->
-  <div class="modal fade custom_search_pop" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="serch_form">
-            <input type="text" placeholder="search" >
-            <button type="submit">search</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
     <!-- JS here -->
     <script src="js/vendor/modernizr-3.5.0.min.js"></script>
     <script src="js/vendor/jquery-1.12.4.min.js"></script>

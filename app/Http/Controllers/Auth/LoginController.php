@@ -5,43 +5,54 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class LoginController extends Controller
 {
-    // عرض نموذج تسجيل الدخول
+    // Show login form
     public function showLoginForm()
     {
-        return view('login.Log in.login'); // تأكد من صحة مسار ملف login.blade.php
+        return view('login.login'); // Ensure the correct path for the login view
     }
 
-    // معالجة تسجيل الدخول
+    // Handle login
     public function login(Request $request)
     {
+        // Validate the input data
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('email', 'password');
+        // Try to find the user by email
+        $user = User::where('email', $request->email)->first();
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            
-            // تحقق من دور المستخدم
-            if ($user->role_id === 1) {
-                // افترض أن الدور 1 هو للدور العادي
-                return redirect()->intended('/home');
-            } elseif ($user->role_id === 2 || $user->role_id === 3) {
-                // افترض أن الأدوار 2 و 3 هي للأدمن والسوبر أدمن
-                return redirect()->intended('/admin');
-            }
-
-            // التوجيه الافتراضي إذا لم يتطابق أي من الأدوار
-            return redirect()->intended('/home');
+        // If user does not exist
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'The email address is not registered in the system.',
+            ]);
         }
 
-        return back()->withErrors([
-            'email' => 'بيانات تسجيل الدخول غير صحيحة',
-        ]);
+        // If user exists, check if the password matches
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->withErrors([
+                'password' => 'The password is incorrect.',
+            ]);
+        }
+
+        // If authentication is successful, log in the user
+        Auth::login($user);
+
+        // Redirect based on the user's role
+        if ($user->role_id === 1) {
+            return redirect()->intended('/home'); // Regular user
+        } elseif ($user->role_id === 2 || $user->role_id === 3) {
+            return redirect()->intended('/admin'); // Admin or Super Admin
+        }
+
+        // Default redirect if no role matched
+        return redirect()->intended('/home');
     }
 }

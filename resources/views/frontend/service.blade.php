@@ -77,7 +77,6 @@
 <!--/ bradcam_area  -->
 
 
-    
     <!-- service_area  -->
     <div class="service_area">
         <div class="container">
@@ -88,7 +87,7 @@
                             <img src="img/service/1.png" alt="">
                         </div>
                         <div class="service_info">
-                            <h3><a href="service_details.html">Ocean Freight</a></h3>
+                            <h3><a href="{{ route('service-details') }}">Ocean Freight</a></h3>
                             <p>Esteem spirit temper too say adieus who direct esteem.</p>
                         </div>
                     </div>
@@ -99,7 +98,7 @@
                             <img src="img/service/2.png" alt="">
                         </div>
                         <div class="service_info">
-                            <h3><a href="service_details.html">Land Transport</a></h3>
+                            <h3><a href="{{ route('Land_shipping') }}">Land Transport</a></h3>
                             <p>Esteem spirit temper too say adieus who direct esteem.</p>
                         </div>
                     </div>
@@ -111,7 +110,7 @@
                             <img src="img/service/3.png" alt="">
                         </div>
                         <div class="service_info">
-                            <h3><a href="service_details.html">Air Freight</a></h3>
+                            <h3><a href="{{ route('AirFreight') }}">Air Freight</a></h3>
                             <p>Esteem spirit temper too say adieus who direct esteem.</p>
                         </div>
                     </div>

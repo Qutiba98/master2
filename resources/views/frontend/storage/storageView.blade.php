@@ -59,9 +59,11 @@
                    <li class="list-group-item"><strong>total:</strong> {{ $storageRequest->total_price }}$</li>
 
                </ul>
+
                <div class="text-center mt-4">
-                   <button type="button" class="btn btn-primary" style="background-color: #FF3414;" onclick="confirmRequest()">Confirm Request</button>
-               </div>
+                <button type="button" class="btn btn-primary" style="background-color: #FF3414;" onclick="window.location.href = '/home'">Back To Home</button>
+            </div>
+            
            </div>
        </div>
    </div>

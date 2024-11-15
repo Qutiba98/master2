@@ -82,8 +82,11 @@
             <div class="input_field">
                 <input type="text" name="number" placeholder="Number" value="{{ old('number') }}" required>
             </div>
+            @error('number') 
+                <div class="text-danger mt-2">{{ $message }}</div> 
+            @enderror
         </div>
-
+        
         <div class="col-xl-6">
             <div class="input_field">
                 <select name="size" class="wide" id="size_select" required>

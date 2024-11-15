@@ -60,11 +60,11 @@ class RegisteredUserController extends Controller
                              ->withInput();
         }
 
-        // // إنشاء المستخدم الجديد وتسجيل دخوله
+        // إنشاء المستخدم الجديد
         $user = $this->create($request->all());
-        // Auth::login($user);
 
-        // إعادة التوجيه بعد التسجيل الناجح
-        return redirect()->route('login')->with('successRegister', 'Registration successful. Please log in.');
+        // إضافة رسالة النجاح للجلسة
+        return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
+        
     }
 }

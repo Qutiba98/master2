@@ -21,7 +21,7 @@ class InventoryRequestController extends Controller
         $request->validate([
             'governorate' => 'required|string',
             'housing_details' => 'required|string',
-            'number' => 'required|string',
+            'number' => 'required|string|unique:users,number', 
             'size' => 'required|string',
             'breakable' => 'required|string',
             'delivery_service' => 'required|string',

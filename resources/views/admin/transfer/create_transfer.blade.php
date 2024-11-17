@@ -54,7 +54,7 @@
             </div>
 
             <!-- Price and Details for 1 Month -->
-            <h3>1 Month</h3>
+            <h3>Package 1 Month</h3>
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label for="price_1_month">Price $</label>
@@ -105,7 +105,7 @@
             </div>
 
             <!-- Price and Details for 6 Months -->
-            <h3>6 Months</h3>
+            <h3>Package 6 Months</h3>
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label for="price_6_month">Price $</label>
@@ -156,7 +156,7 @@
             </div>
 
             <!-- Price and Details for 1 Year -->
-            <h3>1 Year</h3>
+            <h3>Package 1 Year</h3>
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label for="price_1_year">Price $</label>

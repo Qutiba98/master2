@@ -27,8 +27,8 @@ public function paymentPage($id)
 
     return view('frontend.payment.payments', [
         'pricing' => $pricing,
-        'id' => $pricing->id,          // إضافة id
-        'duration' => $pricing->duration // إضافة duration
+        'id' => $pricing->id,     
+        'duration' => $pricing->duration 
     ]);
 }
 

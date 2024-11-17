@@ -88,7 +88,7 @@
                         </div>
                         <div class="service_info">
                             <h3><a href="{{ route('service-details') }}">Ocean Freight</a></h3>
-                            <p>Esteem spirit temper too say adieus who direct esteem.</p>
+                            <p>Maritime transportation using ships.</p>
                         </div>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="service_info">
                             <h3><a href="{{ route('Land_shipping') }}">Land Transport</a></h3>
-                            <p>Esteem spirit temper too say adieus who direct esteem.</p>
+                            <p>Land transportation using trucks.</p>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                         </div>
                         <div class="service_info">
                             <h3><a href="{{ route('AirFreight') }}">Air Freight</a></h3>
-                            <p>Esteem spirit temper too say adieus who direct esteem.</p>
+                            <p>Air transportation by aviation.</p>
                         </div>
                     </div>
                 </div>

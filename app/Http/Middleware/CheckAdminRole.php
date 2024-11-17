@@ -19,12 +19,10 @@ class CheckAdminRole
     {
         $user = Auth::user();
         
-        // تحقق من صلاحية المستخدم
         if ($user && in_array($user->role_id, explode('|', $role))) {
             return $next($request);
         }
 
-        // إعادة توجيه إذا لم يكن المستخدم لديه الصلاحية
         return redirect('/home')->with('error', 'You do not have access to this page.');
     }
     

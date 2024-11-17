@@ -9,15 +9,15 @@ class BookingRequest extends Model
 {
     use HasFactory;
 
-    protected $table = 'bookings_request'; // تأكد من أن الاسم هنا صحيح
+    protected $table = 'bookings_request';
 
     protected $fillable = [
         'user_id',
         'package_type_id',
         'duration',
         'price',
-        'status', // تأكد من إضافة هذا الحقل إذا كان موجودًا
-        'country', // إضافة حقل الدولة
+        'status', 
+        'country', 
     ];
 
     public function user()

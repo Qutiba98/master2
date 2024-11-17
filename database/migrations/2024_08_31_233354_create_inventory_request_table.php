@@ -7,29 +7,29 @@ use Illuminate\Support\Facades\Schema;
 class CreateInventoryRequestTable extends Migration
 {
     /**
-     * تشغيل التهجير.
+     *
      *
      * @return void
      */
     public function up()
     {
         Schema::create('inventory_request', function (Blueprint $table) {
-            $table->id(); // عمود رئيسي من نوع bigint مع زيادة تلقائية
-            $table->bigInteger('user_id'); // عمود لتخزين معرف المستخدم
-            $table->integer('package_id'); // عمود لتخزين معرف الحزمة
-            $table->integer('nationality_status_id'); // عمود لتخزين حالة الجنسية
-            $table->bigInteger('delivered_location_id'); // عمود لتخزين موقع التسليم
-            $table->string('name'); // عمود لتخزين اسم الطلب
-            $table->integer('status_id'); // عمود لتخزين حالة الطلب
+            $table->id();
+            $table->bigInteger('user_id');
+            $table->integer('package_id'); 
+            $table->integer('nationality_status_id');
+            $table->bigInteger('delivered_location_id'); 
+            $table->string('name'); 
+            $table->integer('status_id');
 
             // تعريف العلاقة بين user_id و users
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps(); // ينشئ عمودين لتوقيت الإنشاء والتحديث
+            $table->timestamps(); 
         });
     }
 
     /**
-     * التراجع عن التهجير.
+     *
      *
      * @return void
      */

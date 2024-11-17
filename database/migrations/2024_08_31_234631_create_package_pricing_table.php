@@ -7,30 +7,29 @@ use Illuminate\Support\Facades\Schema;
 class CreatePackagePricingTable extends Migration
 {
     /**
-     * تشغيل التهجير.
+     *
      *
      * @return void
      */
     public function up()
     {
         Schema::create('package_pricing', function (Blueprint $table) {
-            $table->id(); // عمود رئيسي من نوع bigint مع زيادة تلقائية
-            $table->unsignedBigInteger('package_type_id'); // عمود لتخزين معرف نوع الطرد
-            $table->string('duration'); // عمود لتخزين مدة الحزمة (month_1, month_6, year_1)
-            $table->decimal('price', 10, 2); // عمود لتخزين السعر باستخدام نوع decimal
+            $table->id(); 
+            $table->unsignedBigInteger('package_type_id'); 
+            $table->string('duration'); 
+            $table->decimal('price', 10, 2); 
 
-            // تعريف العلاقة بين الجداول
             $table->foreign('package_type_id')
                   ->references('id')
                   ->on('package_types')
-                  ->onDelete('cascade'); // إذا تم حذف نوع الطرد، يتم حذف جميع الأسعار المرتبطة
+                  ->onDelete('cascade'); 
 
-            $table->timestamps(); // ينشئ عمودين لتوقيت الإنشاء والتحديث
+            $table->timestamps();
         });
     }
 
     /**
-     * التراجع عن التهجير.
+     *
      *
      * @return void
      */

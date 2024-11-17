@@ -7,28 +7,27 @@ use Illuminate\Support\Facades\Schema;
 class CreateProductsTable extends Migration
 {
     /**
-     * تشغيل التهجير.
+     * 
      *
      * @return void
      */
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id(); // عمود رئيسي من نوع bigint مع زيادة تلقائية
-            $table->unsignedBigInteger('inventory_id'); // عمود لتخزين معرف المخزون
-            $table->string('name'); // عمود لتخزين اسم المنتج
-            $table->string('size'); // عمود لتخزين حجم المنتج
-            $table->string('space_required'); // عمود لتخزين المساحة المطلوبة
+            $table->id(); 
+            $table->unsignedBigInteger('inventory_id'); 
+            $table->string('name'); 
+            $table->string('size'); 
+            $table->string('space_required'); 
 
-            // تعريف العلاقات بين الجداول إذا لزم الأمر
             $table->foreign('inventory_id')->references('id')->on('inventory')->onDelete('cascade');
 
-            $table->timestamps(); // ينشئ عمودين لتوقيت الإنشاء والتحديث
+            $table->timestamps(); 
         });
     }
 
     /**
-     * التراجع عن التهجير.
+     *
      *
      * @return void
      */

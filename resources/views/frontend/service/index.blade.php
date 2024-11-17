@@ -11,6 +11,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}">
     
     <!-- CSS here -->
+    <base href="{{ url('/') }}/" target="_self">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
@@ -166,7 +167,7 @@ body {
             $pricing = $packageType->packagePricing->keyBy('duration');
         @endphp
 
-
+<br> <br>
 
 <div id="wrapper">
   <div id="pricing-tables">
@@ -239,7 +240,7 @@ body {
   </div>
 </div>
 
-
+<br> <br>
    <x-footer />
 
    <!-- JS here -->

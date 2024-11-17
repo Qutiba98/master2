@@ -20,7 +20,7 @@ class BookingRequestController extends Controller
 
         BookingRequest::create($request->all());
 
-        return back()->with('success', 'تم إرسال طلب الحجز بنجاح');
+        return back()->with('success', 'Your reservation request has been sent successfully');
     }
 
     public function index()
@@ -35,7 +35,6 @@ class BookingRequestController extends Controller
         $request->status = 'accepted';
         $request->save();
 
-        // إنشاء حجز جديد في جدول bookings
         Booking::create([
             'user_id' => $request->user_id,
             'package_type_id' => $request->package_type_id,
@@ -44,7 +43,7 @@ class BookingRequestController extends Controller
             'country' => $request->country,
         ]);
 
-        return redirect()->route('admin.booking.requests.index')->with('success', 'تم قبول الطلب بنجاح وتم إنشاء الحجز.');
+        return redirect()->route('admin.booking.requests.index')->with('success', 'The request was successfully accepted and the reservation was created.');
     }
 
     public function reject($id)
@@ -53,6 +52,6 @@ class BookingRequestController extends Controller
         $request->status = 'rejected';
         $request->save();
 
-        return redirect()->route('admin.booking.requests.index')->with('success', 'تم رفض الطلب');
+        return redirect()->route('admin.booking.requests.index')->with('success', 'The request was rejected');
     }
 }

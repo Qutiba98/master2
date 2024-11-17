@@ -7,22 +7,22 @@ use Illuminate\Support\Facades\Schema;
 class CreateDeliveryTypeTable extends Migration
 {
     /**
-     * تشغيل التهجير.
+     *
      *
      * @return void
      */
     public function up()
     {
         Schema::create('delivery_type', function (Blueprint $table) {
-            $table->id(); // عمود رئيسي من نوع bigint مع زيادة تلقائية
-            $table->string('type'); // عمود لتخزين نوع التسليم
+            $table->id(); 
+            $table->string('type'); 
 
-            $table->timestamps(); // ينشئ عمودين لتوقيت الإنشاء والتحديث
+            $table->timestamps(); 
         });
     }
 
     /**
-     * التراجع عن التهجير.
+     *
      *
      * @return void
      */

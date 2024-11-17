@@ -14,7 +14,7 @@ class CreateBookingsTable extends Migration
             $table->foreignId('package_type_id')->constrained()->onDelete('cascade');
             $table->string('duration');
             $table->decimal('price', 10, 2);
-            $table->string('country'); // إضافة حقل country هنا
+            $table->string('country'); 
             $table->timestamps();
         });
     }

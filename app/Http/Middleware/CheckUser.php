@@ -19,14 +19,12 @@ class CheckUser
     {
         $user = Auth::user();
         
-        // تحقق من صلاحية المستخدم
         if ($user) {
             return $next($request);
             
         }
 
 
-        // إعادة توجيه إذا لم يكن المستخدم لديه الصلاحية
         return redirect('/login')->with('error', 'You do not have access to this page.');
     }
     

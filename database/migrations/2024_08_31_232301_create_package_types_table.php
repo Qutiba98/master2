@@ -7,23 +7,23 @@ use Illuminate\Support\Facades\Schema;
 class CreatePackageTypesTable extends Migration
 {
     /**
-     * تشغيل التهجير.
+     *
      *
      * @return void
      */
     public function up()
     {
         Schema::create('package_types', function (Blueprint $table) {
-            $table->id(); // عمود رئيسي من نوع bigint مع زيادة تلقائية
-            $table->string('name'); // عمود لتخزين اسم نوع الطرد
-            $table->string('dimensions'); // عمود لتخزين أبعاد الطرد (مثلاً "20x20x20 cm")
+            $table->id(); 
+            $table->string('name'); 
+            $table->string('dimensions');
 
-            $table->timestamps(); // ينشئ عمودين لتوقيت الإنشاء والتحديث
+            $table->timestamps(); 
         });
     }
 
     /**
-     * التراجع عن التهجير.
+     * 
      *
      * @return void
      */

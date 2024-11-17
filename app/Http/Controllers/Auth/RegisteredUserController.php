@@ -11,19 +11,16 @@ use Illuminate\Http\Request;
 
 class RegisteredUserController extends Controller
 {
-    // تفعيل middleware للتحقق من أن المستخدم ليس مسجلاً بالفعل
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    // عرض نموذج التسجيل
     public function showRegistrationForm()
     {
-        return view('login.Register.register'); // تأكد من صحة المسار للملف
+        return view('login.Register.register');
     }
 
-    // التحقق من صحة البيانات المدخلة
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -35,7 +32,7 @@ class RegisteredUserController extends Controller
         ]);
     }
 
-    // إنشاء مستخدم جديد
+    // create users 
     protected function create(array $data)
     {
         return User::create([
@@ -48,10 +45,8 @@ class RegisteredUserController extends Controller
         ]);
     }
 
-    // معالجة التسجيل بعد تقديم النموذج
     public function register(Request $request)
     {
-        // التحقق من صحة البيانات المدخلة
         $validator = $this->validator($request->all());
 
         if ($validator->fails()) {
@@ -59,11 +54,8 @@ class RegisteredUserController extends Controller
                              ->withErrors($validator)
                              ->withInput();
         }
-
-        // إنشاء المستخدم الجديد
         $user = $this->create($request->all());
 
-        // إضافة رسالة النجاح للجلسة
         return redirect()->route('login')->with('success', 'Registration successful! Please log in.');
         
     }

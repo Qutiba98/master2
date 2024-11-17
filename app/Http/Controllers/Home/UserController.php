@@ -15,17 +15,14 @@ class UserController extends Controller
 {
     public function showHome()
     {
-        // الحصول على عدد المستخدمين
+        // count users
         $usersCount = User::count();
     
-        // جلب جميع الطلبات
         $inventoryRequests = InventoryRequest::with('user')->get();
     
-        // جلب جميع الحجوزات
         $bookingsCount = Booking::count();
     
-        // جلب جميع المواقع المخزنة (inventory_locations)
-        $inventoryLocationsCount = InventoryLocation::count(); // أو استعلام مخصص حسب الحاجة
+        $inventoryLocationsCount = InventoryLocation::count(); 
     
         return view('frontend.home', compact('usersCount', 'inventoryRequests', 'bookingsCount', 'inventoryLocationsCount'));
     }

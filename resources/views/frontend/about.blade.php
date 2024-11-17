@@ -77,7 +77,7 @@
                             </ul>
 
                             <div class="about_btn">
-                                <a class="boxed-btn3-line" href="contact.html">Contact Us</a>
+                                <a class="boxed-btn3-line" href="{{ route('contact') }}">Contact Us</a>
                             </div>
                         </div>
                     </div>

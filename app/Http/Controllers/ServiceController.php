@@ -23,10 +23,8 @@ public function show($id)
 
 public function paymentPage($id)
 {
-    // احصل على تفاصيل الحزمة
     $pricing = PackagePricing::findOrFail($id);
 
-    // عائدات البيانات
     return view('frontend.payment.payments', [
         'pricing' => $pricing,
         'id' => $pricing->id,          // إضافة id

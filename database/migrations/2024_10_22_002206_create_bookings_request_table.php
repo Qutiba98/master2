@@ -14,8 +14,8 @@ class CreateBookingsRequestTable extends Migration
             $table->foreignId('package_type_id')->constrained()->onDelete('cascade');
             $table->string('duration');
             $table->decimal('price', 10, 2);
-            $table->string('country'); // إضافة حقل الدولة
-            $table->string('status')->default('pending'); // الحالة: pending, accepted, rejected
+            $table->string('country'); 
+            $table->string('status')->default('pending'); 
             $table->timestamps();
         });
     }

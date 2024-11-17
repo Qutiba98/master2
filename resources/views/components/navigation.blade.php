@@ -72,17 +72,13 @@
                                         <li class="nav-item"><a class="nav-link" href="{{ route('service') }}">Services</a></li>
                                         <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About</a></li>
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                                 <a class="dropdown-item" href="{{ route('service-details') }}">Service Details</a>
                                                 <a class="dropdown-item" href="{{ route('elements') }}">Elements</a>
                                             </div>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Blog</a>
                                             <div class="dropdown-menu" aria-labelledby="navbarDropdownBlog">
-                                                <a class="dropdown-item" href="{{ route('blog') }}">Blog</a>
-                                                <a class="dropdown-item" href="{{ route('single-blog') }}">Single Blog</a>
                                             </div>
                                         </li>
                                         <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
@@ -96,46 +92,41 @@
         </div>
     </div>
 
-    <!-- أنماط CSS -->
     <style>
-        /* تلوين النص في قائمة البرجر إلى الأسود */
         .navbar-nav .nav-link {
-            color: black; /* اللون الأسود للنص */
+            color: black;
         }
 
-        /* تغيير لون الخلفية إلى الأحمر عند التمرير */
         .navbar-nav .nav-link:hover, 
         .navbar-nav .nav-link:focus {
-            background-color: rgb(255, 255, 255); /* الخلفية الحمراء */
-            color: white; /* اللون الأبيض للنص عند الضغط */
+            background-color: rgb(255, 255, 255); 
+            color: white; 
         }
 
-        /* التأثير عند الضغط */
         .navbar-nav .nav-link.active {
-            background-color: rgb(255, 255, 255); /* الخلفية الحمراء عند الضغط */
-            color: white; /* اللون الأبيض للنص */
+            background-color: rgb(255, 255, 255); 
+            color: white; 
         }
 
-        /* تغيير لون أيقونة البرجر */
         .navbar-toggler {
-            border: none; /* إزالة الإطار */
+            border: none; 
         }
 
         .navbar-toggler-icon {
-            background-color: red; /* لون أيقونة البرجر */
-            border-radius: 5px; /* زوايا مدورة */
-            width: 30px; /* عرض الأيقونة */
-            height: 3px; /* ارتفاع الأيقونة */
+            background-color: red; 
+            border-radius: 5px; 
+            width: 30px; 
+            height: 3px; 
         }
 
         .navbar-toggler-icon::before,
         .navbar-toggler-icon::after {
             content: '';
             display: block;
-            background-color: red; /* لون الخطوط */
-            height: 3px; /* ارتفاع الخطوط */
-            margin: 5px 0; /* مسافة بين الخطوط */
-            border-radius: 5px; /* زوايا مدورة */
+            background-color: red;
+            height: 3px; 
+            margin: 5px 0;
+            border-radius: 5px; 
         }
     </style>
 </header>

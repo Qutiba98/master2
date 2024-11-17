@@ -19,17 +19,17 @@ class InventoryRequest extends Model
         'name',
         'status_id',
         'email',
-        'governorate',         // Added new field
-        'housing_details',     // Added new field
-        'number',              // Added new field
-        'size',                // Added new field
-        'breakable',           // Added new field
-        'delivery_service',    // Added new field
-        'message',             // Added new field
-        'payment_method',      // Added new field
-        'storage_duration',    // Added new field
-        'total_price',         // Added new field
-        'location_id',         // Added new field
+        'governorate',        
+        'housing_details',     
+        'number',              
+        'size',                
+        'breakable',           
+        'delivery_service',   
+        'message',             
+        'payment_method',      
+        'storage_duration',    
+        'total_price',         
+        'location_id',         
     ];
 
     // Define relationships

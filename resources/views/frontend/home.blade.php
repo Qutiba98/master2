@@ -50,8 +50,7 @@
                     <div class="col-xl-8">
                         <div class="slider_text text-center justify-content-center">
                             <p>For Personal & Business</p>
-                            <h3>Global Logistic Service
-                                For Business</h3>
+                            <h3>Global logistics service for warehousing and shipping</h3>
                                 <a class="boxed-btn3" href="service">Our Services</a>
                         </div>
                     </div>
@@ -128,7 +127,7 @@
                             </div>
                             <div class="service_info"> 
                                 <h3><a href="{{ route('Land_shipping') }}">Land Transport</a></h3>
-                                <p>Esteem spirit temper too say adieus who direct esteem.</p>
+                                <p>Land transportation using trucks.</p>
                             </div>
                         </div>
                         <div class="single_service">
@@ -137,7 +136,7 @@
                             </div>
                             <div class="service_info">
                                 <h3><a href="{{ route('AirFreight') }}">Air Freight</a></h3>
-                                <p>Esteem spirit temper too say adieus who direct esteem.</p>
+                                <p>Air transportation using ships.</p>
                             </div>
                         </div>
                         
@@ -147,7 +146,7 @@
                             </div>
                             <div class="service_info">
                                 <h3><a href="{{ route('service-details') }}">Ocean Freight</a></h3>
-                                <p>Esteem spirit temper too say adieus who direct esteem.</p>
+                                <p>Maritime transportation using ships.</p>
                             </div>
                             
                         </div>
@@ -169,7 +168,7 @@
                 </div>
                 <div class="col-xl-5 col-md-6">
                     <div class="call_add_action">
-                        <a href="#" class="boxed-btn3">+779 199 880</a>
+                        <a  class="boxed-btn3">+779 199 880</a>
                     </div>
                 </div>
             </div>

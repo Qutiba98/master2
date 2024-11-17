@@ -10,19 +10,16 @@ class TransferController extends Controller
 {
     public function index()
     {
-        // استرجاع جميع أنواع النقل
         $transfers = PackageType::with('pricing')->get();
         return view('admin.transfers.index', compact('transfers'));
     }
 
     public function create()
     {
-        // عرض نموذج إضافة نوع نقل جديد
 return view('admin.transfer.create_transfer');    }
 
     public function store(Request $request)
     {
-        // التحقق من صحة البيانات
         $validatedData = $request->validate([
             'name' => 'required|in:Sea,Air,Land',
             'dimensions' => 'required|in:By Ship,By Air,By Truck',
@@ -49,13 +46,11 @@ return view('admin.transfer.create_transfer');    }
             'usage_rules_1_year' => 'required|string',
         ]);
 
-        // إنشاء نوع الحزمة
         $packageType = PackageType::create([
             'name' => $validatedData['name'],
             'dimensions' => $validatedData['dimensions'],
         ]);
 
-        // إنشاء الأسعار لكل فترة
         $this->createPackagePricing($packageType->id, $validatedData);
 
     return redirect()->back()->with('success', 'Transfer type updated successfully.');
@@ -63,7 +58,6 @@ return view('admin.transfer.create_transfer');    }
 
     protected function createPackagePricing($packageTypeId, $validatedData)
     {
-        // إنشاء الأسعار لكل فترة
         PackagePricing::create([
             'package_type_id' => $packageTypeId,
             'price' => $validatedData['price_1_month'],
@@ -103,14 +97,12 @@ return view('admin.transfer.create_transfer');    }
 
     public function edit($id)
     {
-        // استرجاع نوع النقل وتفاصيله
         $transfer = PackageType::with('pricing')->findOrFail($id);
         return view('admin.transfers.edit', compact('transfer'));
     }
 
     public function update(Request $request, $id)
     {
-        // التحقق من صحة البيانات
         $validatedData = $request->validate([
             'name' => 'required|in:Sea,Air,Land',
             'dimensions' => 'required|in:By Ship,By Air,By Truck',
@@ -137,14 +129,12 @@ return view('admin.transfer.create_transfer');    }
             'usage_rules_1_year' => 'required|string',
         ]);
 
-        // تحديث نوع الحزمة
         $packageType = PackageType::findOrFail($id);
         $packageType->update([
             'name' => $validatedData['name'],
             'dimensions' => $validatedData['dimensions'],
         ]);
 
-        // تحديث الأسعار لكل فترة
         $this->updatePackagePricing($packageType->id, $validatedData);
 
         return redirect()->route('admin.transfers.index')->with('success', 'Transfer type updated successfully.');
@@ -152,7 +142,6 @@ return view('admin.transfer.create_transfer');    }
 
     protected function updatePackagePricing($packageTypeId, $validatedData)
     {
-        // تحديث الأسعار
         PackagePricing::where('package_type_id', $packageTypeId)->where('duration', 'month_1')->update([
             'price' => $validatedData['price_1_month'],
             'space_dimensions' => $validatedData['space_dimensions_1_month'],
@@ -186,10 +175,9 @@ return view('admin.transfer.create_transfer');    }
 
     public function destroy($id)
     {
-        // حذف نوع النقل
         $packageType = PackageType::findOrFail($id);
-        $packageType->pricing()->delete(); // حذف الأسعار المرتبطة
-        $packageType->delete(); // حذف نوع النقل
+        $packageType->pricing()->delete(); 
+        $packageType->delete(); 
 
         return redirect()->route('admin.transfers.index')->with('success', 'Transfer type deleted successfully.');
     }

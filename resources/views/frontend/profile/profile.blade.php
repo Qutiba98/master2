@@ -18,10 +18,10 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* تأكد من أن النص في كل الأعمدة متساوي في المحاذاة */
+        
         .table td, .table th {
-            vertical-align: middle; /* لضبط العمود في المنتصف */
-            text-align: center; /* لمحاذاة النص إلى المنتصف */
+            vertical-align: middle; 
+            text-align: center;
         }
 
 
@@ -131,5 +131,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
     <x-footer />
+
 </body>
 </html>

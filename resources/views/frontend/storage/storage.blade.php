@@ -29,9 +29,9 @@
         <div class="row">
             <div class="col-xl-4 col-lg-4 col-md-5">
                 <div class="Estimate_info">
-                    <h3>Get free Estimate</h3>
-                    <p>Esteem spirit temper too say adieus who direct esteem. It look estee luckily or picture placing.</p>
-                    <a href="#" class="boxed-btn3">+10 672 457 356</a>
+                    <h3>Storage</h3>
+                    <p>Please fill out this form accurately and provide the required information to be reviewed and verified by the staff.</p>
+                    <a  class="boxed-btn3">+962 779 199 880</a>
                 </div>
             </div>
             <div class="col-xl-8 col-lg-8 col-md-7">
@@ -92,7 +92,7 @@
                 <select name="size" class="wide" id="size_select" required>
                     <option data-display="Select Size (m²)" value="">Select Size (m²)</option>
                     <option value="4" data-price="20">2x2 - $20</option>
-                    <option value="9" data-price="30">3x3 - $30</option>
+                    <option value="6" data-price="30">3x3 - $30</option>
                     <option value="16" data-price="40">4x4 - $40</option>
                     <option value="25" data-price="50">5x5 - $50</option>
                     <option value="36" data-price="60">6x6 - $60</option>
@@ -209,9 +209,42 @@
 </div>
 <!-- Estimate_area end  -->
 
+
+
+<!-- Bootstrap Modal  allert error -->
+
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background-color: #f8f9fa;"> 
+      <div class="modal-header">
+        <h5 class="modal-title" id="alertModalLabel" style="color: #0d6efd;">Notice</h5> 
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="color: #495057;"> 
+        No available warehouses at the moment.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button> 
+      </div>
+    </div>
+  </div>
+</div>
+
+@if($errors->has('error'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+        alertModal.show();
+    });
+</script>
+@endif
+
+<!-- end Bootstrap Modal  allert error -->
+
+
 <x-footer />
 
-<!-- JS هنا -->
+<!-- JS  -->
 <script src="js/vendor/jquery-1.12.4.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="js/vendor/modernizr-3.5.0.min.js"></script>
@@ -246,14 +279,14 @@
 // Define base prices for each size and month
 const basePricePerMonth = {
     "4": 20,
-    "3x3": 30,
-    "4x4": 40,
-    "5x5": 50,
-    "6x6": 60,
-    "7x7": 70,
-    "8x8": 80,
-    "9x9": 90,
-    "10x10": 100,
+    "6": 30,
+    "16": 40,
+    "25": 50,
+    "36": 60,
+    "49": 70,
+    "64": 80,
+    "81": 90,
+    "100": 100,
 };
 
 // Define tax rate (for example, 25% tax)

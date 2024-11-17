@@ -33,10 +33,6 @@
           <li class="nav-item profile">
             <div class="profile-desc">
               <div class="profile-pic">
-                <div class="count-indicator">
-                  <img class="img-xs rounded-circle " src="assets/images/faces/face15.jpg" alt="">
-                  <span class="count bg-success"></span>
-                </div>
 
                 <div class="profile-name">
                     <h5 class="mb-0 font-weight-normal">{{ auth()->user()->name }}</h5>
@@ -47,23 +43,18 @@
               </div>
               <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
               <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item preview-item">
-                  <div class="preview-thumbnail">
-                    <div class="preview-icon bg-dark rounded-circle">
-                      <i class="mdi mdi-onepassword  text-info"></i>
-                    </div>
-                  </div>
+                <div class="dropdown-divider">ss</div>
+                <a href="{{ route('logout') }}" class="dropdown-item preview-item"> 
                   
                   <div class="preview-item-content">
                     @if(auth()->check())
                     <div style="display: flex; align-items: center; gap: 10px;">
     
-                        <!-- زر تسجيل الخروج -->
-                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                            @csrf
-                            <button type="submit" style="background-color: transparent; border: 1px solid #000; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Logout</button>
-                        </form>
+                        <!-- logout -->
+<form action="{{ route('logout') }}" method="POST" style="display: inline;">
+    @csrf
+    <button type="submit" style="background-color: transparent; color: white; padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer;">Logout</button>
+</form>
                     </div>
                 @else
                 @endif
@@ -78,7 +69,7 @@
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
               </span>
-              <span class="menu-title">Form Elements</span>
+              <span class="menu-title">Home</span>
             </a>
           </li>
 
@@ -129,9 +120,10 @@
                 <span class="menu-icon">
                     <i class="mdi mdi-chart-bar"></i>
                 </span>
-                <span class="menu-title">Show Request</span> <!-- تأكد من تغيير العنوان إلى اللغة التي ترغب فيها -->
+                <span class="menu-title">Show Request</span> 
             </a>
         </li>
+
 
 
 
@@ -152,6 +144,19 @@
               </ul>
             </div>
           </li>
+
+
+
+
+          <li class="nav-item menu-items">
+    <a class="nav-link" href="{{ route('home') }}">
+              <span class="menu-icon">
+                <i class="mdi mdi-playlist-play"></i>
+              </span>
+              <span class="menu-title">Return to the website</span>
+            </a>
+          </li>
+
 
 
       </nav>

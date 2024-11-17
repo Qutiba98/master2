@@ -7,23 +7,23 @@ use Illuminate\Support\Facades\Schema;
 class CreateRequestStatusTable extends Migration
 {
     /**
-     * تشغيل التهجير.
+     *
      *
      * @return void
      */
     public function up()
     {
         Schema::create('request_status', function (Blueprint $table) {
-            $table->id(); // عمود رئيسي من نوع bigint مع زيادة تلقائية
-            $table->string('name'); // عمود لتخزين اسم الحالة
-            $table->string('status'); // عمود لتخزين وصف الحالة
+            $table->id(); 
+            $table->string('name'); 
+            $table->string('status'); 
 
-            $table->timestamps(); // ينشئ عمودين لتوقيت الإنشاء والتحديث
+            $table->timestamps(); 
         });
     }
 
     /**
-     * التراجع عن التهجير.
+     *
      *
      * @return void
      */

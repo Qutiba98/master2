@@ -48,7 +48,7 @@
                         </div>
                         <div class="service_info">
                             <h3><a href="{{ route('service.details', $packageType->id) }}">{{ $packageType->name }}</a></h3>
-                            <p>الأبعاد: {{ $packageType->dimensions }}</p> <!-- عرض الأبعاد -->
+                            <p> {{ $packageType->dimensions }}</p> 
                         </div>
                     </div>
                 </div>
@@ -57,8 +57,6 @@
     </div>
 </div>
 <!--/ service_area  -->
-
-
 <x-footer />
 
 

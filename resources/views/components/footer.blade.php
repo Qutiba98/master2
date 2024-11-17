@@ -44,11 +44,10 @@
                                 Services
                             </h3>
                             <ul>
-                                <li><a href="#">Air Transportation</a></li>
-                                <li><a href="#">Ocean Freight</a></li>
-                                <li><a href="#">Ocean Cargo</a></li>
-                                <li><a href="#">Logistics</a></li>
-                                <li><a href="#">Warehouse Moving</a></li>
+                                <li><a href="{{ route('AirFreight') }}">Air Transportation</a></li>
+                                <li><a href="{{ route('service-details') }}">Ocean Freight</a></li>
+                                <li><a href="{{ route('AirFreight') }}">Air Transportation</a></li>
+                                <li><a href="{{ route('Land_shipping') }}">Land shipping</a></li>
                             </ul>
 
                         </div>
@@ -59,40 +58,43 @@
                                 Company
                             </h3>
                             <ul>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">News</a></li>
-                                <li><a href="#"> Testimonials</a></li>
-                                <li><a href="#"> Why Us?</a></li>
+                                <li><a href="{{ route('about') }}">About</a></li>
+                                <li><a href="{{ route('contact') }}">Contact</a></li>
+                                <li><a href="{{ route('contact') }}"> Why Us?</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6 col-lg-3">
                         <div class="footer_widget">
                             <h3 class="footer_title">
-                                Industries
+                                Requests
                             </h3>
                             <ul>
-                                <li><a href="#">Chemicals</a></li>
-                                <li><a href="#">Automotive</a></li>
-                                <li><a href="#"> Consumer Goods</a></li>
-                                <li><a href="#">Life Science</a></li>
-                                <li><a href="#">Foreign Trade</a></li>
+                                <li><a href="packeg">Packeg</a></li>
+                                <li><a href="storage">Storage</a></li>
+                    <li>
+                        @auth
+                            <a href="{{ route('frontend.profile.profile') }}">{{ auth()->user()->name }}</a>
+                        @else
+                            <a href="{{ route('login') }}">Login</a>
+                        @endauth
+                    </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-md-6 col-lg-4">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                Subscribe
-                            </h3>
-                            <form action="#" class="newsletter_form">
-                                <input type="text" placeholder="Enter your mail">
-                                <button type="submit">Subscribe</button>
-                            </form>
-                            <p class="newsletter_text">Esteem spirit temper too say adieus who direct esteem esteems
-                                luckily.</p>
-                        </div>
-                    </div>
+
+
+            <div class="media contact-info">
+                <span class="contact-info__icon"><i class="ti-email"></i></span>
+                <div class="media-body">
+                    <h3> logistico@gmail.com</h3>
+                    <p>Send us your query anytime!</p>
+                </div>
+            </div>
+
+
+
+
                 </div>
             </div>
         </div>
@@ -103,7 +105,7 @@
                     <div class="col-xl-12">
                         <p class="copy_right text-center">
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </p>
                     </div>
